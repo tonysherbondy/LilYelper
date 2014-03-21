@@ -19,6 +19,8 @@
 		BBC7F1E618DBB01A0072D6A5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBC7F1CE18DBB01A0072D6A5 /* UIKit.framework */; };
 		BBC7F1EE18DBB01A0072D6A5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBC7F1EC18DBB01A0072D6A5 /* InfoPlist.strings */; };
 		BBC7F1F018DBB01A0072D6A5 /* LilYelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7F1EF18DBB01A0072D6A5 /* LilYelperTests.m */; };
+		BBC7F1FC18DBCD420072D6A5 /* ResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7F1FA18DBCD420072D6A5 /* ResultsViewController.m */; };
+		BBC7F1FD18DBCD420072D6A5 /* ResultsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBC7F1FB18DBCD420072D6A5 /* ResultsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,9 @@
 		BBC7F1EB18DBB01A0072D6A5 /* LilYelperTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LilYelperTests-Info.plist"; sourceTree = "<group>"; };
 		BBC7F1ED18DBB01A0072D6A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BBC7F1EF18DBB01A0072D6A5 /* LilYelperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LilYelperTests.m; sourceTree = "<group>"; };
+		BBC7F1F918DBCD420072D6A5 /* ResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsViewController.h; sourceTree = "<group>"; };
+		BBC7F1FA18DBCD420072D6A5 /* ResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsViewController.m; sourceTree = "<group>"; };
+		BBC7F1FB18DBCD420072D6A5 /* ResultsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResultsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +114,7 @@
 			children = (
 				BBC7F1D918DBB01A0072D6A5 /* AppDelegate.h */,
 				BBC7F1DA18DBB01A0072D6A5 /* AppDelegate.m */,
+				BBC7F1FE18DBCD4B0072D6A5 /* View Controllers */,
 				BBC7F1DC18DBB01A0072D6A5 /* Images.xcassets */,
 				BBC7F1D118DBB01A0072D6A5 /* Supporting Files */,
 			);
@@ -142,6 +148,16 @@
 				BBC7F1EC18DBB01A0072D6A5 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BBC7F1FE18DBCD4B0072D6A5 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BBC7F1F918DBCD420072D6A5 /* ResultsViewController.h */,
+				BBC7F1FA18DBCD420072D6A5 /* ResultsViewController.m */,
+				BBC7F1FB18DBCD420072D6A5 /* ResultsViewController.xib */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +235,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBC7F1FD18DBCD420072D6A5 /* ResultsViewController.xib in Resources */,
 				BBC7F1D518DBB01A0072D6A5 /* InfoPlist.strings in Resources */,
 				BBC7F1DD18DBB01A0072D6A5 /* Images.xcassets in Resources */,
 			);
@@ -239,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBC7F1FC18DBCD420072D6A5 /* ResultsViewController.m in Sources */,
 				BBC7F1DB18DBB01A0072D6A5 /* AppDelegate.m in Sources */,
 				BBC7F1D718DBB01A0072D6A5 /* main.m in Sources */,
 			);
