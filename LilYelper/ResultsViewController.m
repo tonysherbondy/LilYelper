@@ -7,6 +7,7 @@
 //
 
 #import "ResultsViewController.h"
+#import "ResultTableViewCell.h"
 
 @interface ResultsViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -29,6 +30,9 @@
     [super viewDidLoad];
     
     self.tableView.dataSource = self;
+    
+    UINib *resultCellNib = [UINib nibWithNibName:@"ResultTableViewCell" bundle:nil];
+    [self.tableView registerNib:resultCellNib forCellReuseIdentifier:@"ResultTableViewCell"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,9 +48,8 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = nil;
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"duhmb"];
-    cell.textLabel.text = @"duhmb";
+    ResultTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ResultTableViewCell" forIndexPath:indexPath];
+//    cell.textLabel.text = @"duhmb";
     return cell;
 }
 
