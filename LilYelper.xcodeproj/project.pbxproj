@@ -26,6 +26,9 @@
 		BBC7F20718DBE3680072D6A5 /* Result.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7F20618DBE3680072D6A5 /* Result.m */; };
 		BBC7F20C18DE0ED50072D6A5 /* FiltersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7F20A18DE0ED50072D6A5 /* FiltersViewController.m */; };
 		BBC7F20D18DE0ED50072D6A5 /* FiltersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBC7F20B18DE0ED50072D6A5 /* FiltersViewController.xib */; };
+		BBC7F21118DE1CD00072D6A5 /* SwitchFilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7F20F18DE1CD00072D6A5 /* SwitchFilterCell.m */; };
+		BBC7F21218DE1CD00072D6A5 /* SwitchFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBC7F21018DE1CD00072D6A5 /* SwitchFilterCell.xib */; };
+		BBC7F21518DE21780072D6A5 /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7F21418DE21780072D6A5 /* Filter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +69,11 @@
 		BBC7F20918DE0ED50072D6A5 /* FiltersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FiltersViewController.h; sourceTree = "<group>"; };
 		BBC7F20A18DE0ED50072D6A5 /* FiltersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FiltersViewController.m; sourceTree = "<group>"; };
 		BBC7F20B18DE0ED50072D6A5 /* FiltersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FiltersViewController.xib; sourceTree = "<group>"; };
+		BBC7F20E18DE1CD00072D6A5 /* SwitchFilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchFilterCell.h; sourceTree = "<group>"; };
+		BBC7F20F18DE1CD00072D6A5 /* SwitchFilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchFilterCell.m; sourceTree = "<group>"; };
+		BBC7F21018DE1CD00072D6A5 /* SwitchFilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchFilterCell.xib; sourceTree = "<group>"; };
+		BBC7F21318DE21780072D6A5 /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		BBC7F21418DE21780072D6A5 /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +189,9 @@
 		BBC7F20418DBD40B0072D6A5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BBC7F20E18DE1CD00072D6A5 /* SwitchFilterCell.h */,
+				BBC7F20F18DE1CD00072D6A5 /* SwitchFilterCell.m */,
+				BBC7F21018DE1CD00072D6A5 /* SwitchFilterCell.xib */,
 				BBC7F1FF18DBD4040072D6A5 /* ResultTableViewCell.h */,
 				BBC7F20018DBD4040072D6A5 /* ResultTableViewCell.m */,
 				BBC7F20118DBD4040072D6A5 /* ResultTableViewCell.xib */,
@@ -193,6 +204,8 @@
 			children = (
 				BBC7F20518DBE3680072D6A5 /* Result.h */,
 				BBC7F20618DBE3680072D6A5 /* Result.m */,
+				BBC7F21318DE21780072D6A5 /* Filter.h */,
+				BBC7F21418DE21780072D6A5 /* Filter.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -275,6 +288,7 @@
 				BBC7F1FD18DBCD420072D6A5 /* ResultsViewController.xib in Resources */,
 				BBC7F1D518DBB01A0072D6A5 /* InfoPlist.strings in Resources */,
 				BBC7F20D18DE0ED50072D6A5 /* FiltersViewController.xib in Resources */,
+				BBC7F21218DE1CD00072D6A5 /* SwitchFilterCell.xib in Resources */,
 				BBC7F20318DBD4040072D6A5 /* ResultTableViewCell.xib in Resources */,
 				BBC7F1DD18DBB01A0072D6A5 /* Images.xcassets in Resources */,
 			);
@@ -296,9 +310,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBC7F20C18DE0ED50072D6A5 /* FiltersViewController.m in Sources */,
+				BBC7F21518DE21780072D6A5 /* Filter.m in Sources */,
 				BBC7F1FC18DBCD420072D6A5 /* ResultsViewController.m in Sources */,
 				BBC7F1DB18DBB01A0072D6A5 /* AppDelegate.m in Sources */,
 				BBC7F20718DBE3680072D6A5 /* Result.m in Sources */,
+				BBC7F21118DE1CD00072D6A5 /* SwitchFilterCell.m in Sources */,
 				BBC7F20218DBD4040072D6A5 /* ResultTableViewCell.m in Sources */,
 				BBC7F1D718DBB01A0072D6A5 /* main.m in Sources */,
 			);
