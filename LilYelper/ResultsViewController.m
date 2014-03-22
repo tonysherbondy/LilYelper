@@ -50,14 +50,30 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ResultTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ResultTableViewCell" forIndexPath:indexPath];
-    cell.resultText = @"simple text";
+    if (indexPath.row % 2) {
+        cell.resultText = @"A moderately long string that should suffice to detect multiline usage.";
+    } else {
+        cell.resultText = @"Short String";
+    }
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //    return [ResultTableViewCell heightWithPrototype:self.prototypeResultCell result:self.results[0]];
-    return 50;
+    
+    NSString *text = nil;
+    if (indexPath.row % 2) {
+        text = @"A moderately long string that should suffice to detect multiline usage.";
+    } else {
+        text = @"Short String";
+    }
+    UIFont *fontText = [UIFont systemFontOfSize:17.0];
+    CGRect rect = [text boundingRectWithSize:CGSizeMake(100, CGFLOAT_MAX)
+                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                  attributes:@{NSFontAttributeName:fontText}
+                                     context:nil];
+    return rect.size.height;
 }
 
 @end
