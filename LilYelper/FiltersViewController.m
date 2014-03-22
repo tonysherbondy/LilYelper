@@ -8,7 +8,7 @@
 
 #import "FiltersViewController.h"
 #import "Filter.h"
-#import "SwitchFilterCell.h"
+#import "FilterCell.h"
 
 @interface FiltersViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -26,7 +26,7 @@
 
 - (NSArray *)nibsForSections
 {
-    return @[@"ResultTableViewCell", @"ResultTableViewCell",
+    return @[@"SelectCell", @"SelectCell",
             @"SwitchFilterCell", @"SwitchFilterCell"];
 }
 
@@ -36,11 +36,11 @@
     NSMutableArray *sections = [[NSMutableArray alloc] init];
     
     // Sort by
-    NSArray *sortbyFilters = @[[[Filter alloc] init]];
+    NSArray *sortbyFilters = @[[[Filter alloc] initWithText:@"Best Match"]];
     [sections addObject:sortbyFilters];
     
     // Distance
-    NSArray *distanceFilters = @[[[Filter alloc] init]];
+    NSArray *distanceFilters = @[[[Filter alloc] initWithText:@"Auto"]];
     [sections addObject:distanceFilters];
     
     // Most Popular
@@ -71,8 +71,8 @@
     self.tableView.dataSource = self;
     
     // Register the custom row nibs
-    UINib *resultCellNib = [UINib nibWithNibName:@"ResultTableViewCell" bundle:nil];
-    [self.tableView registerNib:resultCellNib forCellReuseIdentifier:@"ResultTableViewCell"];
+    UINib *selectCellNib = [UINib nibWithNibName:@"SelectCell" bundle:nil];
+    [self.tableView registerNib:selectCellNib forCellReuseIdentifier:@"SelectCell"];
     
     UINib *switchCellNib = [UINib nibWithNibName:@"SwitchFilterCell" bundle:nil];
     [self.tableView registerNib:switchCellNib forCellReuseIdentifier:@"SwitchFilterCell"];
@@ -124,12 +124,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *nibForSection = self.nibsForSections[indexPath.section];
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:nibForSection forIndexPath:indexPath];
+    FilterCell *cell = [self.tableView dequeueReusableCellWithIdentifier:nibForSection forIndexPath:indexPath];
+    cell.filter = (self.filtersForSections[indexPath.section])[indexPath.row];
     
-    if ([cell isKindOfClass:[SwitchFilterCell class]]) {
-        SwitchFilterCell *switchCell = (SwitchFilterCell *)cell;
-        switchCell.filter = (self.filtersForSections[indexPath.section])[indexPath.row];
-    }
+//    if ([cell isKindOfClass:[FilterCell class]]) {
+//        FilterCell *switchCell = (FilterCell *)cell;
+//        switchCell.filter = (self.filtersForSections[indexPath.section])[indexPath.row];
+//    }
     return cell;
 }
 

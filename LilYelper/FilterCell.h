@@ -1,5 +1,5 @@
 //
-//  SwitchFilterCell.h
+//  FilterCell.h
 //  LilYelper
 //
 //  Created by Anthony Sherbondy on 3/22/14.
@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FilterCell.h"
+#import "Filter.h"
 
-@interface SwitchFilterCell : FilterCell
+@interface FilterCell : UITableViewCell
+@property (nonatomic, strong) Filter *filter;
 @end
