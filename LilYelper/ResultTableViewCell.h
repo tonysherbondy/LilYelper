@@ -11,5 +11,6 @@
 
 @interface ResultTableViewCell : UITableViewCell
 @property (nonatomic, strong) Result *result;
+@property (nonatomic, strong) NSString *resultText;
 //+ (CGFloat)heightWithPrototype:(ResultTableViewCell *)prototype result:(Result *)result;
 @end

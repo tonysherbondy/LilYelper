@@ -10,7 +10,6 @@
 
 @interface ResultTableViewCell ()
 @property (weak, nonatomic) IBOutlet UILabel *resultTitleLabel;
-
 @end
 
 @implementation ResultTableViewCell
@@ -25,6 +24,11 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+-(void)setResultText:(NSString *)resultText
+{
+    self.resultTitleLabel.text = resultText;
 }
 
 //+ (CGFloat)heightWithPrototype:(ResultTableViewCell *)prototype result:(Result *)result

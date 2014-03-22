@@ -12,8 +12,6 @@
 
 @interface ResultsViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) ResultTableViewCell *prototypeResultCell;
-@property (nonatomic, strong) NSMutableArray *results;
 @end
 
 @implementation ResultsViewController
@@ -22,11 +20,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Creating some fake data
-        self.results = [[NSMutableArray alloc] init];
-        for (int i=0; i<20; i++) {
-            [self.results addObject:[[Result alloc] init]];
-        }
+
     }
     return self;
 }
@@ -42,15 +36,6 @@
     [self.tableView registerNib:resultCellNib forCellReuseIdentifier:@"ResultTableViewCell"];
 }
 
-//-(ResultTableViewCell *)prototypeResultCell
-//{
-//    // lazily instantiate and hold onto the prototype
-//    if (!_prototypeResultCell) {
-//        _prototypeResultCell = [self.tableView dequeueReusableCellWithIdentifier:@"ResultTableViewCell"];
-//    }
-//    return _prototypeResultCell;
-//}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -65,15 +50,14 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ResultTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ResultTableViewCell" forIndexPath:indexPath];
-//    cell.textLabel.text = @"duhmb";
-    cell.result = self.results[indexPath.row];
+    cell.resultText = @"simple text";
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //    return [ResultTableViewCell heightWithPrototype:self.prototypeResultCell result:self.results[0]];
-    return 100;
+    return 50;
 }
 
 @end
