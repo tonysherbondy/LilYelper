@@ -28,7 +28,7 @@
 
 - (void)setFilter:(Filter *)filter
 {
-    self.label.text = filter.text;
+    self.label.text = filter.options[filter.value];
 }
 
 @end

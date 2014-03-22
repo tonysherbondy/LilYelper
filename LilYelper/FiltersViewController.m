@@ -36,12 +36,14 @@
     NSMutableArray *sections = [[NSMutableArray alloc] init];
     
     // Sort by
-    NSArray *sortbyFilters = @[[[Filter alloc] initWithText:@"Best Match"]];
-    [sections addObject:sortbyFilters];
+    Filter *sortbyFilter = [[Filter alloc] init];
+    sortbyFilter.options = @[ @"Best Match", @"Distance", @"Highest Rated"];
+    [sections addObject:@[sortbyFilter]];
     
     // Distance
-    NSArray *distanceFilters = @[[[Filter alloc] initWithText:@"Auto"]];
-    [sections addObject:distanceFilters];
+    Filter *distanceFilter = [[Filter alloc] init];
+    distanceFilter.options = @[@"Auto", @"1km", @"5km", @"10km", @"20km"];
+    [sections addObject:@[distanceFilter]];
     
     // Most Popular
     Filter *dealsFilter = [[Filter alloc] initWithText:@"Deals"];
@@ -126,11 +128,6 @@
     NSString *nibForSection = self.nibsForSections[indexPath.section];
     FilterCell *cell = [self.tableView dequeueReusableCellWithIdentifier:nibForSection forIndexPath:indexPath];
     cell.filter = (self.filtersForSections[indexPath.section])[indexPath.row];
-    
-//    if ([cell isKindOfClass:[FilterCell class]]) {
-//        FilterCell *switchCell = (FilterCell *)cell;
-//        switchCell.filter = (self.filtersForSections[indexPath.section])[indexPath.row];
-//    }
     return cell;
 }
 
