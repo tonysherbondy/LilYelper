@@ -10,9 +10,4 @@
 
 @implementation Result
 
--(NSString *)title
-{
-    return @"I'm kind of a long title.";
-}
-
 @end

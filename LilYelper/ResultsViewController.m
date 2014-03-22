@@ -12,6 +12,7 @@
 
 @interface ResultsViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *results;
 @end
 
 @implementation ResultsViewController
@@ -20,7 +21,16 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-
+        self.results = [[NSMutableArray alloc] init];
+        for (int i=0; i<20; i++) {
+            Result *result = [[Result alloc] init];
+            if (i % 2) {
+                result.title = @"A moderately long string that should suffice to detect multiline usage.";
+            } else {
+                result.title = @"Short String";
+            }
+            [self.results addObject:result];
+        }
     }
     return self;
 }
@@ -44,17 +54,13 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return self.results.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ResultTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ResultTableViewCell" forIndexPath:indexPath];
-    if (indexPath.row % 2) {
-        cell.resultText = @"A moderately long string that should suffice to detect multiline usage.";
-    } else {
-        cell.resultText = @"Short String";
-    }
+    cell.result = self.results[indexPath.row];
     return cell;
 }
 

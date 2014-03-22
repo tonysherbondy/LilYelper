@@ -26,9 +26,9 @@
     // Configure the view for the selected state
 }
 
--(void)setResultText:(NSString *)resultText
+-(void)setResult:(Result *)result
 {
-    self.resultTitleLabel.text = resultText;
+    self.resultTitleLabel.text = result.title;
 }
 
 //+ (CGFloat)heightWithPrototype:(ResultTableViewCell *)prototype result:(Result *)result
