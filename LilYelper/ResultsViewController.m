@@ -67,19 +67,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //    return [ResultTableViewCell heightWithPrototype:self.prototypeResultCell result:self.results[0]];
-    
-    NSString *text = nil;
-    if (indexPath.row % 2) {
-        text = @"A moderately long string that should suffice to detect multiline usage.";
-    } else {
-        text = @"Short String";
-    }
-    UIFont *fontText = [UIFont systemFontOfSize:17.0];
-    CGRect rect = [text boundingRectWithSize:CGSizeMake(100, CGFLOAT_MAX)
-                                     options:NSStringDrawingUsesLineFragmentOrigin
-                                  attributes:@{NSFontAttributeName:fontText}
-                                     context:nil];
-    return rect.size.height;
+    return [ResultTableViewCell heightWithResult:self.results[indexPath.row]];
 }
 
 @end

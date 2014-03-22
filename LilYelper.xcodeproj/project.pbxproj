@@ -24,6 +24,8 @@
 		BBC7F20218DBD4040072D6A5 /* ResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7F20018DBD4040072D6A5 /* ResultTableViewCell.m */; };
 		BBC7F20318DBD4040072D6A5 /* ResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBC7F20118DBD4040072D6A5 /* ResultTableViewCell.xib */; };
 		BBC7F20718DBE3680072D6A5 /* Result.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7F20618DBE3680072D6A5 /* Result.m */; };
+		BBC7F20C18DE0ED50072D6A5 /* FiltersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7F20A18DE0ED50072D6A5 /* FiltersViewController.m */; };
+		BBC7F20D18DE0ED50072D6A5 /* FiltersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBC7F20B18DE0ED50072D6A5 /* FiltersViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,9 @@
 		BBC7F20118DBD4040072D6A5 /* ResultTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResultTableViewCell.xib; sourceTree = "<group>"; };
 		BBC7F20518DBE3680072D6A5 /* Result.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Result.h; sourceTree = "<group>"; };
 		BBC7F20618DBE3680072D6A5 /* Result.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Result.m; sourceTree = "<group>"; };
+		BBC7F20918DE0ED50072D6A5 /* FiltersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FiltersViewController.h; sourceTree = "<group>"; };
+		BBC7F20A18DE0ED50072D6A5 /* FiltersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FiltersViewController.m; sourceTree = "<group>"; };
+		BBC7F20B18DE0ED50072D6A5 /* FiltersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FiltersViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +171,9 @@
 				BBC7F1F918DBCD420072D6A5 /* ResultsViewController.h */,
 				BBC7F1FA18DBCD420072D6A5 /* ResultsViewController.m */,
 				BBC7F1FB18DBCD420072D6A5 /* ResultsViewController.xib */,
+				BBC7F20918DE0ED50072D6A5 /* FiltersViewController.h */,
+				BBC7F20A18DE0ED50072D6A5 /* FiltersViewController.m */,
+				BBC7F20B18DE0ED50072D6A5 /* FiltersViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -266,6 +274,7 @@
 			files = (
 				BBC7F1FD18DBCD420072D6A5 /* ResultsViewController.xib in Resources */,
 				BBC7F1D518DBB01A0072D6A5 /* InfoPlist.strings in Resources */,
+				BBC7F20D18DE0ED50072D6A5 /* FiltersViewController.xib in Resources */,
 				BBC7F20318DBD4040072D6A5 /* ResultTableViewCell.xib in Resources */,
 				BBC7F1DD18DBB01A0072D6A5 /* Images.xcassets in Resources */,
 			);
@@ -286,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBC7F20C18DE0ED50072D6A5 /* FiltersViewController.m in Sources */,
 				BBC7F1FC18DBCD420072D6A5 /* ResultsViewController.m in Sources */,
 				BBC7F1DB18DBB01A0072D6A5 /* AppDelegate.m in Sources */,
 				BBC7F20718DBE3680072D6A5 /* Result.m in Sources */,

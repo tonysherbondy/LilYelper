@@ -41,4 +41,15 @@
 //    return bounds.size.height;
 //}
 
++ (CGFloat)heightWithResult:(Result *)result
+{
+    NSString *text = result.title;
+    UIFont *fontText = [UIFont systemFontOfSize:17.0];
+    CGRect rect = [text boundingRectWithSize:CGSizeMake(100, CGFLOAT_MAX)
+                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                  attributes:@{NSFontAttributeName:fontText}
+                                     context:nil];
+    return rect.size.height;
+}
+
 @end
