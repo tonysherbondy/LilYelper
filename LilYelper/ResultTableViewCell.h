@@ -11,5 +11,5 @@
 
 @interface ResultTableViewCell : UITableViewCell
 @property (nonatomic, strong) Result *result;
-+ (CGFloat)heightWithPrototype:(ResultTableViewCell *)prototype result:(Result *)result;
+//+ (CGFloat)heightWithPrototype:(ResultTableViewCell *)prototype result:(Result *)result;
 @end

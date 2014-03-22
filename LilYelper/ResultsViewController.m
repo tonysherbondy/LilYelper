@@ -42,14 +42,14 @@
     [self.tableView registerNib:resultCellNib forCellReuseIdentifier:@"ResultTableViewCell"];
 }
 
--(ResultTableViewCell *)prototypeResultCell
-{
-    // lazily instantiate and hold onto the prototype
-    if (!_prototypeResultCell) {
-        _prototypeResultCell = [self.tableView dequeueReusableCellWithIdentifier:@"ResultTableViewCell"];
-    }
-    return _prototypeResultCell;
-}
+//-(ResultTableViewCell *)prototypeResultCell
+//{
+//    // lazily instantiate and hold onto the prototype
+//    if (!_prototypeResultCell) {
+//        _prototypeResultCell = [self.tableView dequeueReusableCellWithIdentifier:@"ResultTableViewCell"];
+//    }
+//    return _prototypeResultCell;
+//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -72,7 +72,8 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [ResultTableViewCell heightWithPrototype:self.prototypeResultCell result:self.results[0]];
+//    return [ResultTableViewCell heightWithPrototype:self.prototypeResultCell result:self.results[0]];
+    return 100;
 }
 
 @end

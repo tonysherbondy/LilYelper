@@ -13,8 +13,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I'm kind of a long title." lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="54" translatesAutoresizingMaskIntoConstraints="NO" id="cPt-4L-AaW">
-                        <rect key="frame" x="133" y="0.0" width="54" height="80"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I'm kind of a long title." lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="cPt-4L-AaW">
+                        <rect key="frame" x="133" y="0.0" width="100" height="41"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -22,10 +22,9 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="cPt-4L-AaW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="9SV-dC-CmB"/>
-                    <constraint firstAttribute="trailing" secondItem="cPt-4L-AaW" secondAttribute="trailing" constant="133" id="U4l-UQ-Lsz"/>
-                    <constraint firstItem="cPt-4L-AaW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="133" id="rI2-F3-rBB"/>
-                    <constraint firstAttribute="bottom" secondItem="cPt-4L-AaW" secondAttribute="bottom" id="tNa-cS-K9m"/>
+                    <constraint firstItem="cPt-4L-AaW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="133" id="Cfm-dr-KVM"/>
+                    <constraint firstAttribute="trailing" secondItem="cPt-4L-AaW" secondAttribute="trailing" constant="87" id="IGj-do-QSb"/>
+                    <constraint firstItem="cPt-4L-AaW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="SpE-5b-YoB"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
