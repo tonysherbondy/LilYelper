@@ -25,7 +25,7 @@
         for (int i=0; i<20; i++) {
             Result *result = [[Result alloc] init];
             if (i % 2) {
-                result.title = @"A moderately long string that should suffice to detect multiline usage.";
+                result.title = @"A moderately long string that should.";
             } else {
                 result.title = @"Short String";
             }

@@ -31,16 +31,6 @@
     self.resultTitleLabel.text = result.title;
 }
 
-//+ (CGFloat)heightWithPrototype:(ResultTableViewCell *)prototype result:(Result *)result
-//{
-//    CGFloat prototypeWidth = prototype.resultTitleLabel.bounds.size.width;
-//    CGRect bounds = [result.title boundingRectWithSize:CGSizeMake(prototypeWidth, CGFLOAT_MAX)
-//                                               options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
-//                                            attributes: @{} context:nil];
-//    NSLog(@"protoWidth: %f, height: %f", prototypeWidth, bounds.size.height);
-//    return bounds.size.height;
-//}
-
 + (CGFloat)heightWithResult:(Result *)result
 {
     NSString *text = result.title;
@@ -49,7 +39,10 @@
                                      options:NSStringDrawingUsesLineFragmentOrigin
                                   attributes:@{NSFontAttributeName:fontText}
                                      context:nil];
-    return rect.size.height;
+    
+    // Offset for the UI elements below the title text label
+    CGFloat heightOffset = 50;
+    return rect.size.height + heightOffset;
 }
 
 @end

@@ -16,10 +16,10 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-//    UIViewController *resultsViewController = [[ResultsViewController alloc] init];
-    UIViewController *filtersViewController = [[FiltersViewController alloc] init];
+    UIViewController *resultsViewController = [[ResultsViewController alloc] init];
+//    UIViewController *filtersViewController = [[FiltersViewController alloc] init];
     
-    UINavigationController *vc = [[UINavigationController alloc] initWithRootViewController:filtersViewController];
+    UINavigationController *vc = [[UINavigationController alloc] initWithRootViewController:resultsViewController];
     self.window.rootViewController = vc;    
     
     self.window.backgroundColor = [UIColor whiteColor];
