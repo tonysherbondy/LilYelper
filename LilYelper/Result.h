@@ -10,4 +10,11 @@
 
 @interface Result : NSObject
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *imageURL;
+@property (nonatomic, strong) NSString *ratingURL;
+@property (nonatomic, strong) NSArray *categories;
+@property (nonatomic, strong) NSString *address;
+
+- (id) initWithDictionary:(NSDictionary *)dictionary;
++ (NSArray *)resultsFromArray:(NSArray *)array;
 @end

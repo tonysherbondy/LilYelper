@@ -18,7 +18,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
 @interface ResultsViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *results;
+@property (nonatomic, strong) NSArray *results;
 @property (nonatomic, strong) YelpClient *client;
 @end
 
@@ -28,25 +28,17 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.results = [[NSMutableArray alloc] init];
-        for (int i=0; i<20; i++) {
-            Result *result = [[Result alloc] init];
-            if (i % 2) {
-                result.title = @"A moderately long string that should.";
-            } else {
-                result.title = @"Short String";
-            }
-            [self.results addObject:result];
-        }
-        
-        // Yelp API
-        self.client = [[YelpClient alloc] initWithConsumerKey:kYelpConsumerKey consumerSecret:kYelpConsumerSecret accessToken:kYelpToken accessSecret:kYelpTokenSecret];
-        
-        [self.client searchWithTerm:@"Thai" success:^(AFHTTPRequestOperation *operation, id response) {
-            NSLog(@"response: %@", response);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"error: %@", [error description]);
-        }];
+//        self.results = [[NSMutableArray alloc] init];
+//        for (int i=0; i<20; i++) {
+//            Result *result = [[Result alloc] init];
+//            if (i % 2) {
+//                result.title = @"A moderately long string that should.";
+//            } else {
+//                result.title = @"Short String";
+//            }
+//            [self.results addObject:result];
+//        }
+        [self search];
     }
     return self;
 }
@@ -84,6 +76,28 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 {
 //    return [ResultTableViewCell heightWithPrototype:self.prototypeResultCell result:self.results[0]];
     return [ResultTableViewCell heightWithResult:self.results[indexPath.row]];
+}
+
+
+- (void) search {
+    
+    // Yelp API
+    self.client = [[YelpClient alloc] initWithConsumerKey:kYelpConsumerKey consumerSecret:kYelpConsumerSecret accessToken:kYelpToken accessSecret:kYelpTokenSecret];
+    
+    //    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    hud.labelText = @"Searching...";
+    [self.client searchWithTerm:@"Thai" success:^(AFHTTPRequestOperation *operation, id response) {
+        self.results = [Result resultsFromArray:response[@"businesses"]];
+        [self.tableView reloadData];
+        
+//        [self hideNetworkErrorView];
+//        MBProgressHUD hideHUDForView:self.view animated:YES];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error: %@", [error description]);
+//        [self showNetworkErrorView];
+//        MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+    
 }
 
 @end
