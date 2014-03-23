@@ -1,5 +1,5 @@
 //
-//  FiltersViewController.h
+//  SeeAllCell.h
 //  LilYelper
 //
 //  Created by Anthony Sherbondy on 3/22/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FiltersViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface SeeAllCell : UITableViewCell
 
 @end
