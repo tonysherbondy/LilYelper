@@ -9,10 +9,17 @@
 #import "ResultsViewController.h"
 #import "ResultTableViewCell.h"
 #import "Result.h"
+#import "YelpClient.h"
+
+NSString * const kYelpConsumerKey = @"vxKwwcR_NMQ7WaEiQBK_CA";
+NSString * const kYelpConsumerSecret = @"33QCvh5bIF5jIHR5klQr7RtBDhQ";
+NSString * const kYelpToken = @"uRcRswHFYa1VkDrGV6LAW2F8clGh5JHV";
+NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
 @interface ResultsViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *results;
+@property (nonatomic, strong) YelpClient *client;
 @end
 
 @implementation ResultsViewController
@@ -31,6 +38,15 @@
             }
             [self.results addObject:result];
         }
+        
+        // Yelp API
+        self.client = [[YelpClient alloc] initWithConsumerKey:kYelpConsumerKey consumerSecret:kYelpConsumerSecret accessToken:kYelpToken accessSecret:kYelpTokenSecret];
+        
+        [self.client searchWithTerm:@"Thai" success:^(AFHTTPRequestOperation *operation, id response) {
+            NSLog(@"response: %@", response);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"error: %@", [error description]);
+        }];
     }
     return self;
 }
