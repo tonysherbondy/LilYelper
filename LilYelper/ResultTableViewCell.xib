@@ -23,7 +23,7 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5bA-5f-JTL">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5bA-5f-JTL">
                         <rect key="frame" x="20" y="8" width="64" height="64"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <constraints>
@@ -45,12 +45,22 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JsX-oo-TWs">
+                        <rect key="frame" x="102" y="37" width="70" height="23"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="1dh-pP-IG3"/>
+                            <constraint firstAttribute="height" constant="23" id="hFk-kn-uYi"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="9M3-Vz-6Ta" firstAttribute="leading" secondItem="cPt-4L-AaW" secondAttribute="trailing" constant="20" id="2QP-n3-yIJ"/>
                     <constraint firstItem="5bA-5f-JTL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="BPc-xA-kih"/>
                     <constraint firstItem="5um-Rv-Ynz" firstAttribute="top" secondItem="9M3-Vz-6Ta" secondAttribute="bottom" id="LqX-Ov-6b5"/>
                     <constraint firstItem="9M3-Vz-6Ta" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="Q8i-e9-JEC"/>
+                    <constraint firstItem="JsX-oo-TWs" firstAttribute="leading" secondItem="5bA-5f-JTL" secondAttribute="trailing" constant="18" id="Vnc-MW-wV1"/>
+                    <constraint firstItem="JsX-oo-TWs" firstAttribute="top" secondItem="cPt-4L-AaW" secondAttribute="bottom" constant="8" id="WkR-oZ-h3p"/>
                     <constraint firstItem="5bA-5f-JTL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="dLZ-Yb-BKr"/>
                     <constraint firstItem="cPt-4L-AaW" firstAttribute="leading" secondItem="5bA-5f-JTL" secondAttribute="trailing" constant="18" id="eQf-7w-8uL"/>
                     <constraint firstItem="cPt-4L-AaW" firstAttribute="top" secondItem="5bA-5f-JTL" secondAttribute="top" id="kab-Ch-opp"/>
@@ -59,6 +69,11 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="distanceLabel" destination="9M3-Vz-6Ta" id="Xvh-mX-Urk"/>
+                <outlet property="imageView" destination="5bA-5f-JTL" id="2fy-8d-SrF"/>
+                <outlet property="priceLabel" destination="5um-Rv-Ynz" id="sDo-rw-9BC"/>
+                <outlet property="ratingImageView" destination="JsX-oo-TWs" id="TGa-3v-h2x"/>
+                <outlet property="resultImageView" destination="5bA-5f-JTL" id="vkK-hV-cQ2"/>
                 <outlet property="resultTitleLabel" destination="cPt-4L-AaW" id="0KJ-ln-kH7"/>
             </connections>
         </tableViewCell>

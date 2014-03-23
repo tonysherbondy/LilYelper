@@ -7,9 +7,14 @@
 //
 
 #import "ResultTableViewCell.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface ResultTableViewCell ()
 @property (weak, nonatomic) IBOutlet UILabel *resultTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *ratingImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *resultImageView;
 @end
 
 @implementation ResultTableViewCell
@@ -29,7 +34,20 @@
 -(void)setResult:(Result *)result
 {
     self.resultTitleLabel.text = result.title;
+    [self.resultImageView setImageWithURL:[NSURL URLWithString:result.imageURL]];
+    [self.ratingImageView setImageWithURL:[NSURL URLWithString:result.ratingURL]];
 }
+
+//- (void)setMovie:(Movie *)movie
+//{
+//    _movie = movie;
+//    
+//    self.movieTitleLabel.text = movie.title;
+//    self.synopsisLabel.text = movie.synopsis;
+//    self.castLabel.text = [movie.cast componentsJoinedByString:@", "];
+//    
+//    
+//}
 
 + (CGFloat)heightWithResult:(Result *)result
 {
