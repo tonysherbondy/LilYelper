@@ -18,6 +18,7 @@
         self.imageURL = dictionary[@"image_url"];
         self.ratingURL = dictionary[@"rating_img_url"];
         self.categories = dictionary[@"categories"];
+        self.rating = [dictionary[@"rating"] floatValue];
         // This is just the street address
         self.address = dictionary[@"location.address"][0];
         

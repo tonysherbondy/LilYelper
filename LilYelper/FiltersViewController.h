@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface FiltersViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
-
+@property (nonatomic, strong) NSDictionary *filters;
 @end

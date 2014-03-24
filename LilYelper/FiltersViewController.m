@@ -55,7 +55,7 @@
     
     // Sort by
     Filter *sortbyFilter = [[Filter alloc] init];
-    sortbyFilter.options = @[ @"Best Match", @"Distance", @"Highest Rated"];
+    sortbyFilter.options = @[@"Best Match", @"Distance", @"Highest Rated"];
     [sections addObject:@[sortbyFilter]];
     
     // Distance

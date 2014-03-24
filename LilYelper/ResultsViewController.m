@@ -22,6 +22,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 @property (nonatomic, strong) NSArray *results;
 @property (nonatomic, strong) YelpClient *client;
 @property (nonatomic, strong) NSString *searchTerm;
+@property (nonatomic, strong) NSDictionary *filters;
 @end
 
 @implementation ResultsViewController
@@ -51,11 +52,23 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     searchBar.delegate = self;
     
     self.navigationItem.titleView = searchBar;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(filter)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(showFilter)];
 
 }
 
-- (void)filter
+- (NSDictionary *)filters
+{
+    if (!_filters) {
+        // Initialize simple dictionary of filters
+        _filters = @{@"sort":@0,
+                     @"radius_filter":@100,
+                     @"deals_filter":@0,
+                     @"category_filter":@""};
+    }
+    return _filters;
+}
+
+- (void)showFilter
 {
     NSLog(@"filter");
 }
@@ -100,12 +113,18 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     
     // Yelp API
     self.client = [[YelpClient alloc] initWithConsumerKey:kYelpConsumerKey consumerSecret:kYelpConsumerSecret accessToken:kYelpToken accessSecret:kYelpTokenSecret];
+    
+    // Yelp Parameters
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:self.filters];
+    parameters[@"term"] = self.searchTerm;
+    parameters[@"location"] = @"San Francisco";
 
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Searching...";
-    [self.client searchWithTerm:self.searchTerm success:^(AFHTTPRequestOperation *operation, id response) {
+    [self.client searchWithParameters:parameters success:^(AFHTTPRequestOperation *operation, id response) {
         self.results = [Result resultsFromArray:response[@"businesses"]];
+                
         [self.tableView reloadData];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         //        [self hideNetworkErrorView];
@@ -114,7 +133,6 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         //        [self showNetworkErrorView];
     }];
-    [self.tableView reloadData];
 }
 
 @end

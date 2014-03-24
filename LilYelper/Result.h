@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSString *ratingURL;
 @property (nonatomic, strong) NSArray *categories;
 @property (nonatomic, strong) NSString *address;
+@property (nonatomic) float rating;
 
 - (id) initWithDictionary:(NSDictionary *)dictionary;
 + (NSArray *)resultsFromArray:(NSArray *)array;
