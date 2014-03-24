@@ -53,9 +53,6 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     self.navigationItem.titleView = searchBar;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(filter)];
 
-    
-//    UINib *resultCellNib = [UINib nibWithNibName:@"ImageOnlyCell" bundle:nil];
-//    [self.tableView registerNib:resultCellNib forCellReuseIdentifier:@"ImageOnlyCell"];
 }
 
 - (void)filter
@@ -101,22 +98,23 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
 - (void) search {
     
-        // Yelp API
-        self.client = [[YelpClient alloc] initWithConsumerKey:kYelpConsumerKey consumerSecret:kYelpConsumerSecret accessToken:kYelpToken accessSecret:kYelpTokenSecret];
-        
-//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        hud.labelText = @"Searching...";
-        [self.client searchWithTerm:self.searchTerm success:^(AFHTTPRequestOperation *operation, id response) {
-            self.results = [Result resultsFromArray:response[@"businesses"]];
-            [self.tableView reloadData];
-//            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            //        [self hideNetworkErrorView];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"error: %@", [error description]);
-//            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            //        [self showNetworkErrorView];
-        }];
+    // Yelp API
+    self.client = [[YelpClient alloc] initWithConsumerKey:kYelpConsumerKey consumerSecret:kYelpConsumerSecret accessToken:kYelpToken accessSecret:kYelpTokenSecret];
+
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Searching...";
+    [self.client searchWithTerm:self.searchTerm success:^(AFHTTPRequestOperation *operation, id response) {
+        self.results = [Result resultsFromArray:response[@"businesses"]];
         [self.tableView reloadData];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //        [self hideNetworkErrorView];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error: %@", [error description]);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //        [self showNetworkErrorView];
+    }];
+    [self.tableView reloadData];
 }
 
 @end
