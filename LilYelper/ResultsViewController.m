@@ -29,16 +29,6 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-//        self.results = [[NSMutableArray alloc] init];
-//        for (int i=0; i<20; i++) {
-//            Result *result = [[Result alloc] init];
-//            if (i % 2) {
-//                result.title = @"A moderately long string that should.";
-//            } else {
-//                result.title = @"Short String";
-//            }
-//            [self.results addObject:result];
-//        }
         [self search];
     }
     return self;
@@ -53,6 +43,9 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     
     UINib *resultCellNib = [UINib nibWithNibName:@"ResultTableViewCell" bundle:nil];
     [self.tableView registerNib:resultCellNib forCellReuseIdentifier:@"ResultTableViewCell"];
+    
+//    UINib *resultCellNib = [UINib nibWithNibName:@"ImageOnlyCell" bundle:nil];
+//    [self.tableView registerNib:resultCellNib forCellReuseIdentifier:@"ImageOnlyCell"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,7 +68,6 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    return [ResultTableViewCell heightWithPrototype:self.prototypeResultCell result:self.results[0]];
     return [ResultTableViewCell heightWithResult:self.results[indexPath.row]];
 }
 

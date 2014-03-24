@@ -36,18 +36,11 @@
     self.resultTitleLabel.text = result.title;
     [self.resultImageView setImageWithURL:[NSURL URLWithString:result.imageURL]];
     [self.ratingImageView setImageWithURL:[NSURL URLWithString:result.ratingURL]];
+    
+    CALayer *layer = [self.resultImageView layer];
+    layer.masksToBounds = YES;
+    layer.cornerRadius = 10.0;
 }
-
-//- (void)setMovie:(Movie *)movie
-//{
-//    _movie = movie;
-//    
-//    self.movieTitleLabel.text = movie.title;
-//    self.synopsisLabel.text = movie.synopsis;
-//    self.castLabel.text = [movie.cast componentsJoinedByString:@", "];
-//    
-//    
-//}
 
 + (CGFloat)heightWithResult:(Result *)result
 {
