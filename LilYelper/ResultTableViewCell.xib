@@ -69,7 +69,6 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="distanceLabel" destination="9M3-Vz-6Ta" id="Xvh-mX-Urk"/>
-                <outlet property="imageView" destination="5bA-5f-JTL" id="2fy-8d-SrF"/>
                 <outlet property="priceLabel" destination="5um-Rv-Ynz" id="sDo-rw-9BC"/>
                 <outlet property="ratingImageView" destination="JsX-oo-TWs" id="TGa-3v-h2x"/>
                 <outlet property="resultImageView" destination="5bA-5f-JTL" id="vkK-hV-cQ2"/>

@@ -36,8 +36,6 @@
 		BBC7F22118DE484C0072D6A5 /* SeeAllCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7F21F18DE484C0072D6A5 /* SeeAllCell.m */; };
 		BBC7F22218DE484C0072D6A5 /* SeeAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBC7F22018DE484C0072D6A5 /* SeeAllCell.xib */; };
 		BBF20BF118DE9FBA00A9F1DE /* YelpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF20BF018DE9FBA00A9F1DE /* YelpClient.m */; };
-		BBF20BF618DFE32B00A9F1DE /* ImageOnlyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF20BF418DFE32B00A9F1DE /* ImageOnlyCell.m */; };
-		BBF20BF718DFE32B00A9F1DE /* ImageOnlyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBF20BF518DFE32B00A9F1DE /* ImageOnlyCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,9 +91,6 @@
 		BBC7F22018DE484C0072D6A5 /* SeeAllCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SeeAllCell.xib; sourceTree = "<group>"; };
 		BBF20BEF18DE9FBA00A9F1DE /* YelpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YelpClient.h; sourceTree = "<group>"; };
 		BBF20BF018DE9FBA00A9F1DE /* YelpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YelpClient.m; sourceTree = "<group>"; };
-		BBF20BF318DFE32B00A9F1DE /* ImageOnlyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageOnlyCell.h; sourceTree = "<group>"; };
-		BBF20BF418DFE32B00A9F1DE /* ImageOnlyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageOnlyCell.m; sourceTree = "<group>"; };
-		BBF20BF518DFE32B00A9F1DE /* ImageOnlyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageOnlyCell.xib; sourceTree = "<group>"; };
 		BBF20BF818E0096F00A9F1DE /* FiltersDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FiltersDelegate.h; sourceTree = "<group>"; };
 		C0400ADB733943B29B15C35C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		CADFB764B95E4CCB97CA0284 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -227,9 +222,6 @@
 				BBC7F1FF18DBD4040072D6A5 /* ResultTableViewCell.h */,
 				BBC7F20018DBD4040072D6A5 /* ResultTableViewCell.m */,
 				BBC7F20118DBD4040072D6A5 /* ResultTableViewCell.xib */,
-				BBF20BF318DFE32B00A9F1DE /* ImageOnlyCell.h */,
-				BBF20BF418DFE32B00A9F1DE /* ImageOnlyCell.m */,
-				BBF20BF518DFE32B00A9F1DE /* ImageOnlyCell.xib */,
 				BBC7F21918DE297C0072D6A5 /* SelectCell.h */,
 				BBC7F21A18DE297C0072D6A5 /* SelectCell.m */,
 				BBC7F21B18DE297C0072D6A5 /* SelectCell.xib */,
@@ -349,7 +341,6 @@
 				BBC7F1D518DBB01A0072D6A5 /* InfoPlist.strings in Resources */,
 				BBC7F20D18DE0ED50072D6A5 /* FiltersViewController.xib in Resources */,
 				BBC7F21218DE1CD00072D6A5 /* SwitchFilterCell.xib in Resources */,
-				BBF20BF718DFE32B00A9F1DE /* ImageOnlyCell.xib in Resources */,
 				BBC7F20318DBD4040072D6A5 /* ResultTableViewCell.xib in Resources */,
 				BBC7F22218DE484C0072D6A5 /* SeeAllCell.xib in Resources */,
 				BBC7F1DD18DBB01A0072D6A5 /* Images.xcassets in Resources */,
@@ -406,7 +397,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBC7F20C18DE0ED50072D6A5 /* FiltersViewController.m in Sources */,
-				BBF20BF618DFE32B00A9F1DE /* ImageOnlyCell.m in Sources */,
 				BBC7F21818DE289A0072D6A5 /* FilterCell.m in Sources */,
 				BBC7F21518DE21780072D6A5 /* Filter.m in Sources */,
 				BBC7F22118DE484C0072D6A5 /* SeeAllCell.m in Sources */,
