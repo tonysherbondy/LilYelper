@@ -7,7 +7,7 @@
 //
 
 #import "ResultsViewController.h"
-#import "ResultTableViewCell.h"
+#import "ImageOnlyCell.h"
 #import "Result.h"
 #import "YelpClient.h"
 #import <MBProgressHUD.h>
@@ -42,8 +42,8 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    UINib *resultCellNib = [UINib nibWithNibName:@"ResultTableViewCell" bundle:nil];
-    [self.tableView registerNib:resultCellNib forCellReuseIdentifier:@"ResultTableViewCell"];
+    UINib *resultCellNib = [UINib nibWithNibName:@"ImageOnlyCell" bundle:nil];
+    [self.tableView registerNib:resultCellNib forCellReuseIdentifier:@"ImageOnlyCell"];
     
     UISearchBar *searchBar = [[UISearchBar alloc] init];
     searchBar.showsCancelButton = NO;
@@ -76,14 +76,15 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ResultTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ResultTableViewCell" forIndexPath:indexPath];
+    ImageOnlyCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ImageOnlyCell" forIndexPath:indexPath];
     cell.result = self.results[indexPath.row];
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [ResultTableViewCell heightWithResult:self.results[indexPath.row]];
+    return 100;
+//    return [ResultTableViewCell heightWithResult:self.results[indexPath.row]];
 }
 
 - (NSString *)searchTerm
