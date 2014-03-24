@@ -11,4 +11,5 @@
 
 @interface SelectCell : FilterCell
 @property (nonatomic, strong) NSString *text;
+- (void)hideDropdownLabel;
 @end

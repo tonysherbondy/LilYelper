@@ -10,6 +10,7 @@
 
 @interface SelectCell ()
 @property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UILabel *dropdownLabel;
 @end
 
 @implementation SelectCell
@@ -34,6 +35,11 @@
 - (void)setText:(NSString *)text
 {
     self.label.text = text;
+}
+
+- (void)hideDropdownLabel
+{
+    self.dropdownLabel.alpha = 0;
 }
 
 @end

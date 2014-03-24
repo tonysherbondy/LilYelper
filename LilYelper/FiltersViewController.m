@@ -19,6 +19,8 @@
 @property (nonatomic) BOOL isCategoriesExpanded;
 
 @property (nonatomic, strong) NSString *sortByValue;
+@property (nonatomic) BOOL isSortByExpanded;
+
 @property (nonatomic, strong) NSSet *mostPopularFilters;
 @end
 
@@ -155,6 +157,11 @@ static int const MOSTPOPULAR_SECTION = 1;
     [self.delegate hideFilters];
 }
 
+- (BOOL)isSortByExpanded
+{
+    return YES;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 //    NSArray *filters = self.filtersForSections[section];
@@ -167,8 +174,7 @@ static int const MOSTPOPULAR_SECTION = 1;
     NSInteger numRows = 0;
     switch (section) {
         case SORTBY_SECTION:
-            // Check to see if it is collapsed, then return options
-            numRows = 1;
+            numRows = self.isSortByExpanded ? SORTBY_OPTIONS.count : 1;
             break;
         case MOSTPOPULAR_SECTION:
             numRows = MOSTPOPULAR_OPTIONS.count;
@@ -195,7 +201,13 @@ static int const MOSTPOPULAR_SECTION = 1;
 {
     SelectCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SelectCell" forIndexPath:indexPath];
     // Do different things depending on whether this row is an expansion row or not
-    cell.text = self.sortByValue;
+    if (indexPath.row == 0) {
+        cell.text = self.sortByValue;
+    } else {
+        NSArray *remainingOptions = [SORTBY_OPTIONS filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self != %@", self.sortByValue]];
+        cell.text = remainingOptions[indexPath.row-1];
+        [cell hideDropdownLabel];
+    }
     return cell;
 }
 

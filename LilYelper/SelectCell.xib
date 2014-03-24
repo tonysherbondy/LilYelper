@@ -34,6 +34,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="dropdownLabel" destination="cNF-Cr-vW8" id="hZt-E2-scF"/>
                 <outlet property="label" destination="5gY-Zo-9Yw" id="Dpn-xE-AoD"/>
             </connections>
         </tableViewCell>
