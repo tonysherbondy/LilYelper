@@ -21,6 +21,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *results;
 @property (nonatomic, strong) YelpClient *client;
+@property (nonatomic, strong) NSString *searchTerm;
 @end
 
 @implementation ResultsViewController
@@ -44,8 +45,22 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     UINib *resultCellNib = [UINib nibWithNibName:@"ResultTableViewCell" bundle:nil];
     [self.tableView registerNib:resultCellNib forCellReuseIdentifier:@"ResultTableViewCell"];
     
+    UISearchBar *searchBar = [[UISearchBar alloc] init];
+    searchBar.showsCancelButton = NO;
+    [searchBar sizeToFit];
+//    UIView *barWrapper = [[UIView alloc]initWithFrame:searchBar.bounds];
+//    [barWrapper addSubview:searchBar];
+    self.navigationItem.titleView = searchBar;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(filter)];
+
+    
 //    UINib *resultCellNib = [UINib nibWithNibName:@"ImageOnlyCell" bundle:nil];
 //    [self.tableView registerNib:resultCellNib forCellReuseIdentifier:@"ImageOnlyCell"];
+}
+
+- (void)filter
+{
+    NSLog(@"filter");
 }
 
 - (void)didReceiveMemoryWarning
