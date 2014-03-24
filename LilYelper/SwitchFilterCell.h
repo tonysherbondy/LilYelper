@@ -10,4 +10,6 @@
 #import "FilterCell.h"
 
 @interface SwitchFilterCell : FilterCell
+@property (nonatomic, strong) NSString *text;
+@property (nonatomic) BOOL on;
 @end

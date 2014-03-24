@@ -10,5 +10,5 @@
 #import "FilterCell.h"
 
 @interface SelectCell : FilterCell
-
+@property (nonatomic, strong) NSString *text;
 @end
