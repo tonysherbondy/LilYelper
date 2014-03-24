@@ -120,12 +120,14 @@
 
 - (void)cancelBarButtonPress
 {
-    NSLog(@"cancel");
+    [self.delegate hideFilters];
 }
 
 - (void)searchBarButtonPress
 {
-    NSLog(@"search");
+    // Want to update the filters on the delegate
+    self.delegate.isFiltersChanged = YES;
+    [self.delegate hideFilters];
 }
 
 - (void)didReceiveMemoryWarning

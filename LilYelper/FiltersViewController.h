@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FiltersDelegate.h"
 
 @interface FiltersViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSDictionary *filters;
+@property (nonatomic, weak) id <FiltersDelegate> delegate;
 @end

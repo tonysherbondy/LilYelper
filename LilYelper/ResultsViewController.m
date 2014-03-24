@@ -11,6 +11,7 @@
 #import "Result.h"
 #import "YelpClient.h"
 #import <MBProgressHUD.h>
+#import "FiltersViewController.h"
 
 NSString * const kYelpConsumerKey = @"vxKwwcR_NMQ7WaEiQBK_CA";
 NSString * const kYelpConsumerSecret = @"33QCvh5bIF5jIHR5klQr7RtBDhQ";
@@ -26,6 +27,8 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 @end
 
 @implementation ResultsViewController
+
+@synthesize isFiltersChanged = _isFiltersChanged;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -70,7 +73,28 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
 - (void)showFilter
 {
-    NSLog(@"filter");
+    // Create the root view controller for the navigation controller
+    // The new view controller configures a Cancel and Done button for the
+    // navigation bar.
+    FiltersViewController *filtersController = [[FiltersViewController alloc] init];
+    
+    // Configure
+//    filtersController.filters = self.filters;
+    filtersController.delegate = self;
+    
+    // Create the navigation controller and present it.
+    UINavigationController *navigationController = [[UINavigationController alloc]
+                                                    initWithRootViewController:filtersController];
+    [self presentViewController:navigationController animated:YES completion: nil];
+}
+
+-(void)hideFilters
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (self.isFiltersChanged) {
+            [self search];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -118,13 +142,14 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:self.filters];
     parameters[@"term"] = self.searchTerm;
     parameters[@"location"] = @"San Francisco";
+    self.isFiltersChanged = NO;
 
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Searching...";
     [self.client searchWithParameters:parameters success:^(AFHTTPRequestOperation *operation, id response) {
         self.results = [Result resultsFromArray:response[@"businesses"]];
-                
+        
         [self.tableView reloadData];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         //        [self hideNetworkErrorView];

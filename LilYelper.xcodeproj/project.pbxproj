@@ -96,6 +96,7 @@
 		BBF20BF318DFE32B00A9F1DE /* ImageOnlyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageOnlyCell.h; sourceTree = "<group>"; };
 		BBF20BF418DFE32B00A9F1DE /* ImageOnlyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageOnlyCell.m; sourceTree = "<group>"; };
 		BBF20BF518DFE32B00A9F1DE /* ImageOnlyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageOnlyCell.xib; sourceTree = "<group>"; };
+		BBF20BF818E0096F00A9F1DE /* FiltersDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FiltersDelegate.h; sourceTree = "<group>"; };
 		C0400ADB733943B29B15C35C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		CADFB764B95E4CCB97CA0284 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -162,6 +163,7 @@
 			children = (
 				BBC7F1D918DBB01A0072D6A5 /* AppDelegate.h */,
 				BBC7F1DA18DBB01A0072D6A5 /* AppDelegate.m */,
+				BBF20BF918E0097A00A9F1DE /* Protocols */,
 				BBC7F20818DBE36C0072D6A5 /* Models */,
 				BBC7F20418DBD40B0072D6A5 /* Views */,
 				BBC7F1FE18DBCD4B0072D6A5 /* View Controllers */,
@@ -256,6 +258,14 @@
 				BBF20BF018DE9FBA00A9F1DE /* YelpClient.m */,
 			);
 			name = API;
+			sourceTree = "<group>";
+		};
+		BBF20BF918E0097A00A9F1DE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				BBF20BF818E0096F00A9F1DE /* FiltersDelegate.h */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
