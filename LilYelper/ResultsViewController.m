@@ -48,8 +48,8 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     UISearchBar *searchBar = [[UISearchBar alloc] init];
     searchBar.showsCancelButton = NO;
     [searchBar sizeToFit];
-//    UIView *barWrapper = [[UIView alloc]initWithFrame:searchBar.bounds];
-//    [barWrapper addSubview:searchBar];
+    searchBar.delegate = self;
+    
     self.navigationItem.titleView = searchBar;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(filter)];
 
@@ -86,25 +86,37 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     return [ResultTableViewCell heightWithResult:self.results[indexPath.row]];
 }
 
+- (NSString *)searchTerm
+{
+    if (!_searchTerm) {
+        _searchTerm = @"";
+    }
+    return _searchTerm;
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    self.searchTerm = searchText;
+    [self search];
+}
 
 - (void) search {
     
-    // Yelp API
-    self.client = [[YelpClient alloc] initWithConsumerKey:kYelpConsumerKey consumerSecret:kYelpConsumerSecret accessToken:kYelpToken accessSecret:kYelpTokenSecret];
-    
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"Searching...";
-    [self.client searchWithTerm:@"Thai" success:^(AFHTTPRequestOperation *operation, id response) {
-        self.results = [Result resultsFromArray:response[@"businesses"]];
+        // Yelp API
+        self.client = [[YelpClient alloc] initWithConsumerKey:kYelpConsumerKey consumerSecret:kYelpConsumerSecret accessToken:kYelpToken accessSecret:kYelpTokenSecret];
+        
+//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        hud.labelText = @"Searching...";
+        [self.client searchWithTerm:self.searchTerm success:^(AFHTTPRequestOperation *operation, id response) {
+            self.results = [Result resultsFromArray:response[@"businesses"]];
+            [self.tableView reloadData];
+//            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            //        [self hideNetworkErrorView];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"error: %@", [error description]);
+//            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            //        [self showNetworkErrorView];
+        }];
         [self.tableView reloadData];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        //        [self hideNetworkErrorView];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"error: %@", [error description]);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        //        [self showNetworkErrorView];
-    }];
-    
 }
 
 @end
