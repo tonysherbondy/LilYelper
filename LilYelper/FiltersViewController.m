@@ -242,6 +242,9 @@ static int const CATEGORIES_SECTION = 3;
     // Do different things depending on whether this row is an expansion row or not
     if (indexPath.row == 0) {
         cell.text = [NSString stringWithFormat:@"%d km", self.distanceValue];
+        if (self.isDistanceExpanded) {
+            [cell flipDropdownLabel];
+        }
     } else {
         NSArray *remainingOptions = [self remainingDistanceOptions];
         cell.text = [NSString stringWithFormat:@"%d km", [remainingOptions[indexPath.row-1] integerValue]];
@@ -277,6 +280,7 @@ static int const CATEGORIES_SECTION = 3;
         // insert rows
         // Need to change dropdown arrow to up
         [self.tableView insertRowsAtIndexPaths:changingIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:DISTANCE_SECTION]] withRowAnimation:UITableViewRowAnimationAutomatic];
     } else if (wasExpanded && !self.isDistanceExpanded) {
         // close rows
         // Need to change dropdown arrow to down
@@ -293,6 +297,9 @@ static int const CATEGORIES_SECTION = 3;
     // Do different things depending on whether this row is an expansion row or not
     if (indexPath.row == 0) {
         cell.text = self.sortByValue;
+        if (self.isSortByExpanded) {
+            [cell flipDropdownLabel];
+        }
     } else {
         NSArray *remainingOptions = [self remainingSortByOptions];
         cell.text = remainingOptions[indexPath.row-1];
@@ -327,6 +334,7 @@ static int const CATEGORIES_SECTION = 3;
         // insert rows
         // Need to change dropdown arrow to up
         [self.tableView insertRowsAtIndexPaths:changingIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:SORTBY_SECTION]] withRowAnimation:UITableViewRowAnimationAutomatic];
     } else if (wasSortByExpanded && !self.isSortByExpanded) {
         // close rows
         // Need to change dropdown arrow to down

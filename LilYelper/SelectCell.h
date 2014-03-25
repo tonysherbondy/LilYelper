@@ -11,4 +11,5 @@
 @interface SelectCell : UITableViewCell
 @property (nonatomic, strong) NSString *text;
 - (void)hideDropdownLabel;
+- (void)flipDropdownLabel;
 @end

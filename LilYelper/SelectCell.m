@@ -37,4 +37,9 @@
     self.dropdownLabel.alpha = 0;
 }
 
+- (void)flipDropdownLabel
+{
+    self.dropdownLabel.text = @"︿";
+}
+
 @end
