@@ -64,7 +64,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     if (!_filters) {
         // Initialize simple dictionary of filters
         _filters = @{@"sort":@0,
-                     @"radius_filter":@100,
+                     @"radius_filter":@10000,
                      @"deals_filter":@1,
                      @"category_filter":@""};
     }

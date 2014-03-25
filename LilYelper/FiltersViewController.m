@@ -33,7 +33,7 @@ static int const DISTANCE_SECTION = 2;
 //static int const CATEGORIES_SECTION = 3;
 #define SECTIONS @[@"Sort by", @"Most Popular", @"Distance"]
 #define SORTBY_OPTIONS @[@"Best Match", @"Distance", @"Highest Rated"]
-#define DISTANCE_OPTIONS @[@5, @10, @20, @50, @100] //kilometers
+#define DISTANCE_OPTIONS @[@1, @5, @10, @20, @50] //kilometers
 
 @implementation FiltersViewController
 
@@ -55,7 +55,8 @@ static int const DISTANCE_SECTION = 2;
     BOOL dealsOn = [filters[@"deals_filter"] boolValue];
     self.mostPopularFilters = @[[[Filter alloc] initWithText:@"Deals" on:dealsOn]];
     
-    NSUInteger distanceIndex = [DISTANCE_OPTIONS indexOfObject:filters[@"radius_filter"]];
+    NSNumber *distance = [NSNumber numberWithInt:[filters[@"radius_filter"] integerValue]/1000];
+    NSUInteger distanceIndex = [DISTANCE_OPTIONS indexOfObject:distance];
     self.distanceValue = [DISTANCE_OPTIONS[distanceIndex] integerValue];
 }
 
@@ -66,7 +67,7 @@ static int const DISTANCE_SECTION = 2;
     Filter *dealsFilter = self.mostPopularFilters[0];
     
     self.delegate.filters = @{@"sort":sortByNumber,
-                              @"radius_filter":[NSNumber numberWithInt:self.distanceValue],
+                              @"radius_filter":[NSNumber numberWithInt:(self.distanceValue*1000)],
                               @"deals_filter":@(dealsFilter.on),
                               @"category_filter":@""};
     // Want to update the filters on the delegate
