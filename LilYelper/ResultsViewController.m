@@ -23,6 +23,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 @property (nonatomic, strong) NSArray *results;
 @property (nonatomic, strong) YelpClient *client;
 @property (nonatomic, strong) NSString *searchTerm;
+@property (nonatomic, strong) UISearchBar *searchBar;
 @end
 
 @implementation ResultsViewController
@@ -49,14 +50,25 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     UINib *resultCellNib = [UINib nibWithNibName:@"ResultTableViewCell" bundle:nil];
     [self.tableView registerNib:resultCellNib forCellReuseIdentifier:@"ResultTableViewCell"];
     
-    UISearchBar *searchBar = [[UISearchBar alloc] init];
-    searchBar.showsCancelButton = NO;
-    [searchBar sizeToFit];
-    searchBar.delegate = self;
+    self.searchBar = [[UISearchBar alloc] init];
+    self.searchBar.showsCancelButton = NO;
+    [self.searchBar sizeToFit];
+    self.searchBar.delegate = self;
     
-    self.navigationItem.titleView = searchBar;
+    self.navigationItem.titleView = self.searchBar;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(showFilter)];
 
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    
+    [self.tableView addGestureRecognizer:tap];
+    
+}
+
+- (void) dismissKeyboard
+{
+    [self.searchBar resignFirstResponder];
 }
 
 - (NSDictionary *)filters
