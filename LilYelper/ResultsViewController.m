@@ -23,12 +23,12 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 @property (nonatomic, strong) NSArray *results;
 @property (nonatomic, strong) YelpClient *client;
 @property (nonatomic, strong) NSString *searchTerm;
-@property (nonatomic, strong) NSDictionary *filters;
 @end
 
 @implementation ResultsViewController
 
 @synthesize isFiltersChanged = _isFiltersChanged;
+@synthesize filters = _filters;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -142,6 +142,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:self.filters];
     parameters[@"term"] = self.searchTerm;
     parameters[@"location"] = @"San Francisco";
+    NSLog(@"parameters: %@", parameters);
     self.isFiltersChanged = NO;
 
     [MBProgressHUD hideHUDForView:self.view animated:NO];

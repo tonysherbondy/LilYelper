@@ -153,6 +153,11 @@ static int const MOSTPOPULAR_SECTION = 1;
 - (void)searchBarButtonPress
 {
     self.delegate.isFiltersChanged = YES;
+    NSNumber *sortByNumber = [NSNumber numberWithUnsignedInteger:[SORTBY_OPTIONS indexOfObject:self.sortByValue]];
+    self.delegate.filters = @{@"sort":sortByNumber,
+                              @"radius_filter":@100,
+                              @"deals_filter":@0,
+                              @"category_filter":@""};
     // Want to update the filters on the delegate
     [self.delegate hideFilters];
 }
@@ -192,6 +197,8 @@ static int const MOSTPOPULAR_SECTION = 1;
     return SECTIONS[section];
 }
 
+#pragma mark - Sort By
+
 - (UITableViewCell *)cellForSortBySectionWithIndexPath:(NSIndexPath *)indexPath
 {
     SelectCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SelectCell" forIndexPath:indexPath];
@@ -230,14 +237,17 @@ static int const MOSTPOPULAR_SECTION = 1;
     }
     if (!wasSortByExpanded && self.isSortByExpanded) {
         // insert rows
+        // Need to change dropdown arrow to up
         [self.tableView insertRowsAtIndexPaths:changingIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
     } else if (wasSortByExpanded && !self.isSortByExpanded) {
         // close rows
+        // Need to change dropdown arrow to down
         [self.tableView deleteRowsAtIndexPaths:changingIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:SORTBY_SECTION]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
+#pragma mark - Most Popular
 - (UITableViewCell *)cellForMostPopularSectionWithIndexPath:(NSIndexPath *)indexPath
 {
     SwitchFilterCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SwitchFilterCell" forIndexPath:indexPath];

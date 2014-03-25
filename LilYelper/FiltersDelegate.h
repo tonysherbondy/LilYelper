@@ -11,4 +11,5 @@
 @protocol FiltersDelegate <NSObject>
 - (void)hideFilters;
 @property (nonatomic) BOOL isFiltersChanged;
+@property (nonatomic, strong) NSDictionary *filters;
 @end
