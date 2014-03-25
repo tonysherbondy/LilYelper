@@ -152,14 +152,9 @@ static int const MOSTPOPULAR_SECTION = 1;
 
 - (void)searchBarButtonPress
 {
-    // Want to update the filters on the delegate
     self.delegate.isFiltersChanged = YES;
+    // Want to update the filters on the delegate
     [self.delegate hideFilters];
-}
-
-- (BOOL)isSortByExpanded
-{
-    return YES;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -204,11 +199,48 @@ static int const MOSTPOPULAR_SECTION = 1;
     if (indexPath.row == 0) {
         cell.text = self.sortByValue;
     } else {
-        NSArray *remainingOptions = [SORTBY_OPTIONS filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self != %@", self.sortByValue]];
+        NSArray *remainingOptions = [self remainingSortByOptions];
         cell.text = remainingOptions[indexPath.row-1];
         [cell hideDropdownLabel];
     }
     return cell;
+}
+
+- (NSArray *)remainingSortByOptions
+{
+    return [SORTBY_OPTIONS filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self != %@", self.sortByValue]];
+}
+
+- (void)didSelectSortByRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    BOOL expanding = NO;
+    BOOL collapsing = NO;
+    NSArray *remainingOptions = [self remainingSortByOptions];
+    if (indexPath.row == 0) {
+        // Simply toggle the expanded state
+        if (self.isSortByExpanded) {
+            collapsing = YES;
+        } else {
+            expanding = YES;
+        }
+        self.isSortByExpanded = !self.isSortByExpanded;
+    } else {
+        // Select a new value and then close the select
+        collapsing = YES;
+        self.sortByValue = remainingOptions[indexPath.row-1];
+    }
+    
+    NSMutableArray *changingIndexPaths = [[NSMutableArray alloc] init];
+    for (int i=0; i<remainingOptions.count; i++) {
+        [changingIndexPaths addObject:[NSIndexPath indexPathForRow:i+1 inSection:SORTBY_SECTION]];
+    }
+    if (expanding) {
+        // insert rows
+        [self.tableView insertRowsAtIndexPaths:changingIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else if (collapsing) {
+        // close rows
+        [self.tableView deleteRowsAtIndexPaths:changingIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 - (UITableViewCell *)cellForMostPopularSectionWithIndexPath:(NSIndexPath *)indexPath
@@ -252,6 +284,21 @@ static int const MOSTPOPULAR_SECTION = 1;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // always deselect the row
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    switch (indexPath.section) {
+        case SORTBY_SECTION:
+            [self didSelectSortByRowWithIndexPath:indexPath];
+            break;
+        case MOSTPOPULAR_SECTION:
+            // do nothing
+            break;
+        default:
+            NSLog(@"don't recognize section you selected!");
+            break;
+    }
+    
 //    if ([self isSelectRowAtIndexPath:indexPath]) {
 //        // animate the additional rows for select choice
 //    } else {
