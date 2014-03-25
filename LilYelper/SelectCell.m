@@ -27,11 +27,6 @@
     // Configure the view for the selected state
 }
 
-//- (void)setFilter:(Filter *)filter
-//{
-//    self.label.text = filter.options[filter.value];
-//}
-
 - (void)setText:(NSString *)text
 {
     self.label.text = text;

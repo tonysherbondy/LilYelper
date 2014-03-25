@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FilterCell.h"
 
 @interface SelectCell : UITableViewCell
 @property (nonatomic, strong) NSString *text;

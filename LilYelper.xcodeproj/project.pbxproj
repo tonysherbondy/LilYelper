@@ -30,7 +30,6 @@
 		BBC7F21118DE1CD00072D6A5 /* SwitchFilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7F20F18DE1CD00072D6A5 /* SwitchFilterCell.m */; };
 		BBC7F21218DE1CD00072D6A5 /* SwitchFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBC7F21018DE1CD00072D6A5 /* SwitchFilterCell.xib */; };
 		BBC7F21518DE21780072D6A5 /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7F21418DE21780072D6A5 /* Filter.m */; };
-		BBC7F21818DE289A0072D6A5 /* FilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7F21718DE289A0072D6A5 /* FilterCell.m */; };
 		BBC7F21C18DE297C0072D6A5 /* SelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7F21A18DE297C0072D6A5 /* SelectCell.m */; };
 		BBC7F21D18DE297C0072D6A5 /* SelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBC7F21B18DE297C0072D6A5 /* SelectCell.xib */; };
 		BBC7F22118DE484C0072D6A5 /* SeeAllCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7F21F18DE484C0072D6A5 /* SeeAllCell.m */; };
@@ -81,8 +80,6 @@
 		BBC7F21018DE1CD00072D6A5 /* SwitchFilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchFilterCell.xib; sourceTree = "<group>"; };
 		BBC7F21318DE21780072D6A5 /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
 		BBC7F21418DE21780072D6A5 /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
-		BBC7F21618DE289A0072D6A5 /* FilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCell.h; sourceTree = "<group>"; };
-		BBC7F21718DE289A0072D6A5 /* FilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCell.m; sourceTree = "<group>"; };
 		BBC7F21918DE297C0072D6A5 /* SelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCell.h; sourceTree = "<group>"; };
 		BBC7F21A18DE297C0072D6A5 /* SelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCell.m; sourceTree = "<group>"; };
 		BBC7F21B18DE297C0072D6A5 /* SelectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectCell.xib; sourceTree = "<group>"; };
@@ -214,8 +211,6 @@
 		BBC7F20418DBD40B0072D6A5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BBC7F21618DE289A0072D6A5 /* FilterCell.h */,
-				BBC7F21718DE289A0072D6A5 /* FilterCell.m */,
 				BBC7F20E18DE1CD00072D6A5 /* SwitchFilterCell.h */,
 				BBC7F20F18DE1CD00072D6A5 /* SwitchFilterCell.m */,
 				BBC7F21018DE1CD00072D6A5 /* SwitchFilterCell.xib */,
@@ -397,7 +392,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBC7F20C18DE0ED50072D6A5 /* FiltersViewController.m in Sources */,
-				BBC7F21818DE289A0072D6A5 /* FilterCell.m in Sources */,
 				BBC7F21518DE21780072D6A5 /* Filter.m in Sources */,
 				BBC7F22118DE484C0072D6A5 /* SeeAllCell.m in Sources */,
 				BBC7F1FC18DBCD420072D6A5 /* ResultsViewController.m in Sources */,
