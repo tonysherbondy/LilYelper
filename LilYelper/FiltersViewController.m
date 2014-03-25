@@ -210,8 +210,10 @@ static int const CATEGORIES_SECTION = 3;
             numRows = self.isDistanceExpanded ? DISTANCE_OPTIONS.count : 1;
             break;
         case CATEGORIES_SECTION:
-            // need to handle collapsing categories
             numRows = self.categoryFilters.count;
+            if (!self.isCategoriesExpanded && numRows > 5) {
+                numRows = 6;
+            }
             break;
             
         default:
@@ -344,26 +346,35 @@ static int const CATEGORIES_SECTION = 3;
 #pragma mark - Categories
 - (UITableViewCell *)cellForCategorySectionWithIndexPath:(NSIndexPath *)indexPath
 {
+    if (!self.isCategoriesExpanded && indexPath.row == 5) {
+        return [self.tableView dequeueReusableCellWithIdentifier:@"SeeAllCell" forIndexPath:indexPath];
+    }
+    
     SwitchFilterCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SwitchFilterCell" forIndexPath:indexPath];
     // Handle collapsed by eventually displaying show all
     cell.filter = self.categoryFilters[indexPath.row];
     return cell;
 }
 
+- (void)didSelectCategoryRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    if (!self.isCategoriesExpanded && indexPath.row == 5) {
+        // Show all category filters
+        self.isCategoriesExpanded = YES;
+        
+        NSMutableArray *newRowIndexPaths = [[NSMutableArray alloc] init];
+        for (int i=6; i<self.categoryFilters.count; i++) {
+            [newRowIndexPaths addObject:[NSIndexPath indexPathForRow:i inSection:CATEGORIES_SECTION]];
+        }
+        [self.tableView insertRowsAtIndexPaths:newRowIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:5 inSection:CATEGORIES_SECTION]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+    }
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    UITableViewCell *cell = nil;
-//    if ([self isSeeAllCellAtIndexPath:indexPath]) {
-//        cell = [self.tableView dequeueReusableCellWithIdentifier:@"SeeAllCell" forIndexPath:indexPath];
-//    } else {
-//        NSString *nibForSection = self.nibsForSections[indexPath.section];
-//        FilterCell *filterCell = [self.tableView dequeueReusableCellWithIdentifier:nibForSection forIndexPath:indexPath];
-//        filterCell.filter = (self.filtersForSections[indexPath.section])[indexPath.row];
-//        cell = filterCell;
-//    }
-//    return cell;
-    
     UITableViewCell *cell = nil;
     switch (indexPath.section) {
         case SORTBY_SECTION:
@@ -396,36 +407,19 @@ static int const CATEGORIES_SECTION = 3;
             [self didSelectSortByRowWithIndexPath:indexPath];
             break;
         case MOSTPOPULAR_SECTION:
-        case CATEGORIES_SECTION:
             // do nothing
             break;
         case DISTANCE_SECTION:
             [self didSelectDistanceRowWithIndexPath:indexPath];
+            break;
+        case CATEGORIES_SECTION:
+            [self didSelectCategoryRowWithIndexPath:indexPath];
             break;
             
         default:
             NSLog(@"don't recognize section you selected!");
             break;
     }
-    
-//    if ([self isSelectRowAtIndexPath:indexPath]) {
-//        // animate the additional rows for select choice
-//    } else {
-//        // deselect
-//        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-//        if ([self isSeeAllCellAtIndexPath:indexPath]) {
-//            // Expand categories section
-//            self.isCategoriesExpanded = YES;
-//
-//            NSArray *categories = self.filtersForSections[3];
-//            NSMutableArray *newRowIndexPaths = [[NSMutableArray alloc] init];
-//            for (int i=6; i<categories.count; i++) {
-//                [newRowIndexPaths addObject:[NSIndexPath indexPathForRow:i inSection:3]];
-//            }
-//            [self.tableView insertRowsAtIndexPaths:newRowIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-//            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:5 inSection:3]] withRowAnimation:UITableViewRowAnimationAutomatic];
-//        }
-//    }
 }
 
 @end
