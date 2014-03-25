@@ -213,20 +213,14 @@ static int const MOSTPOPULAR_SECTION = 1;
 
 - (void)didSelectSortByRowWithIndexPath:(NSIndexPath *)indexPath
 {
-    BOOL expanding = NO;
-    BOOL collapsing = NO;
+    BOOL wasSortByExpanded = self.isSortByExpanded;
     NSArray *remainingOptions = [self remainingSortByOptions];
     if (indexPath.row == 0) {
         // Simply toggle the expanded state
-        if (self.isSortByExpanded) {
-            collapsing = YES;
-        } else {
-            expanding = YES;
-        }
-        self.isSortByExpanded = !self.isSortByExpanded;
+        self.isSortByExpanded = !wasSortByExpanded;
     } else {
         // Select a new value and then close the select
-        collapsing = YES;
+        self.isSortByExpanded = NO;
         self.sortByValue = remainingOptions[indexPath.row-1];
     }
     
@@ -234,12 +228,13 @@ static int const MOSTPOPULAR_SECTION = 1;
     for (int i=0; i<remainingOptions.count; i++) {
         [changingIndexPaths addObject:[NSIndexPath indexPathForRow:i+1 inSection:SORTBY_SECTION]];
     }
-    if (expanding) {
+    if (!wasSortByExpanded && self.isSortByExpanded) {
         // insert rows
         [self.tableView insertRowsAtIndexPaths:changingIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-    } else if (collapsing) {
+    } else if (wasSortByExpanded && !self.isSortByExpanded) {
         // close rows
         [self.tableView deleteRowsAtIndexPaths:changingIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:SORTBY_SECTION]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
