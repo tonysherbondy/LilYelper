@@ -122,46 +122,6 @@ static int const CATEGORIES_SECTION = 3;
     [self.delegate hideFilters];
 }
 
-//- (BOOL)isSeeAllCellAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    // This eventually has to consider whether the
-//    return !self.isCategoriesExpanded && indexPath.section == CATEGORIES_SECTION && indexPath.row == 5;
-//}
-
-//- (NSArray *)filtersForSections
-//{
-//    // Each section has an array of filters, so this is an array of array of filters
-//    NSMutableArray *sections = [[NSMutableArray alloc] init];
-//    
-//    // Sort by
-//    Filter *sortbyFilter = [[Filter alloc] init];
-//    sortbyFilter.options = @[@"Best Match", @"Distance", @"Highest Rated"];
-//    [sections addObject:@[sortbyFilter]];
-//    
-//    // Distance
-//    Filter *distanceFilter = [[Filter alloc] init];
-//    distanceFilter.options = @[@"Auto", @"1km", @"5km", @"10km", @"20km"];
-//    [sections addObject:@[distanceFilter]];
-//    
-//    // Most Popular
-//    Filter *dealsFilter = [[Filter alloc] initWithText:@"Deals"];
-//    NSArray *popularFilters = @[dealsFilter];
-//    [sections addObject:popularFilters];
-//    
-//    // Categories
-//    NSArray *categoriesFilters = @[[[Filter alloc] initWithText:@"Thai"],
-//                                   [[Filter alloc] initWithText:@"Chinese"],
-//                                   [[Filter alloc] initWithText:@"American"],
-//                                   [[Filter alloc] initWithText:@"French"],
-//                                   [[Filter alloc] initWithText:@"German"],
-//                                   [[Filter alloc] initWithText:@"Hawaiin"],
-//                                   [[Filter alloc] initWithText:@"Mexican"],
-//                                   [[Filter alloc] initWithText:@"Italian"]];
-//    [sections addObject:categoriesFilters];
-//    
-//    return sections;
-//}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -191,13 +151,6 @@ static int const CATEGORIES_SECTION = 3;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    NSArray *filters = self.filtersForSections[section];
-//    NSInteger numRows = filters.count;
-//    if (section == 3 && !self.isCategoriesExpanded) {
-//        numRows = numRows > 5 ? 6 : numRows;
-//    }
-//    return numRows;
-    
     NSInteger numRows = 0;
     switch (section) {
         case SORTBY_SECTION:
