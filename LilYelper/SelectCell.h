@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FilterCell.h"
 
-@interface SelectCell : FilterCell
+@interface SelectCell : UITableViewCell
 @property (nonatomic, strong) NSString *text;
 - (void)hideDropdownLabel;
 @end

@@ -10,9 +10,7 @@
 
 @interface Filter : NSObject
 @property (nonatomic, strong) NSString *text;
-// options is really only used for the select filter
-@property (nonatomic, strong) NSArray *options;
-// on/off : 0 or 1, select : index of option
-@property (nonatomic, assign) NSInteger value;
-- (id)initWithText:(NSString *)text;
+// filter is on or off
+@property (nonatomic, assign) BOOL on;
+- (id)initWithText:(NSString *)text on:(BOOL)on;
 @end

@@ -65,7 +65,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
         // Initialize simple dictionary of filters
         _filters = @{@"sort":@0,
                      @"radius_filter":@100,
-                     @"deals_filter":@0,
+                     @"deals_filter":@1,
                      @"category_filter":@""};
     }
     return _filters;
@@ -79,8 +79,8 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     FiltersViewController *filtersController = [[FiltersViewController alloc] init];
     
     // Configure
-//    filtersController.filters = self.filters;
     filtersController.delegate = self;
+    filtersController.filters = self.filters;
     
     // Create the navigation controller and present it.
     UINavigationController *navigationController = [[UINavigationController alloc]

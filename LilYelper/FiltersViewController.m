@@ -13,20 +13,18 @@
 
 @interface FiltersViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) NSArray *filterGroupTitles;
-@property (nonatomic, strong) NSArray *nibsForSections;
+
+// I think I should erase below
 @property (nonatomic, strong) NSArray *filtersForSections;
+
+
 @property (nonatomic) BOOL isCategoriesExpanded;
 
 @property (nonatomic, strong) NSString *sortByValue;
 @property (nonatomic) BOOL isSortByExpanded;
 
-@property (nonatomic, strong) NSSet *mostPopularFilters;
+@property (nonatomic, strong) NSArray *mostPopularFilters;
 @end
-
-// TODO
-//      - Do sortby more explicitly
-//      - Do Most Popular
 
 static int const SORTBY_SECTION = 0;
 static int const MOSTPOPULAR_SECTION = 1;
@@ -35,7 +33,6 @@ static int const MOSTPOPULAR_SECTION = 1;
 //static int const CATEGORIES_SECTION = 3;
 #define SECTIONS @[@"Sort by", @"Most Popular"]
 #define SORTBY_OPTIONS @[@"Best Match", @"Distance", @"Highest Rated"]
-#define MOSTPOPULAR_OPTIONS @[@"Deals"]
 
 @implementation FiltersViewController
 
@@ -48,16 +45,32 @@ static int const MOSTPOPULAR_SECTION = 1;
     return self;
 }
 
-//- (NSArray *)filterGroupTitles
-//{
-//    return @[@"Sort by", @"Distance", @"Most Popular", @"Categories"];
-//}
-//
-//- (NSArray *)nibsForSections
-//{
-//    return @[@"SelectCell", @"SelectCell",
-//            @"SwitchFilterCell", @"SwitchFilterCell"];
-//}
+- (void)setFilters:(NSDictionary *)filters
+{
+    // Change all filters based on dictionary values
+    self.sortByValue = SORTBY_OPTIONS[[filters[@"sort"] integerValue]];
+    
+    // Most popular only has deals right now, but may have more
+    BOOL dealsOn = [filters[@"deals_filter"] boolValue];
+    self.mostPopularFilters = @[[[Filter alloc] initWithText:@"Deals" on:dealsOn]];
+}
+
+- (void)searchBarButtonPress
+{
+    self.delegate.isFiltersChanged = YES;
+    NSNumber *sortByNumber = [NSNumber numberWithUnsignedInteger:[SORTBY_OPTIONS indexOfObject:self.sortByValue]];
+    self.delegate.filters = @{@"sort":sortByNumber,
+                              @"radius_filter":@100,
+                              @"deals_filter":@0,
+                              @"category_filter":@""};
+    // Want to update the filters on the delegate
+    [self.delegate hideFilters];
+}
+
+- (void)cancelBarButtonPress
+{
+    [self.delegate hideFilters];
+}
 
 //- (BOOL)isSelectRowAtIndexPath:(NSIndexPath *)indexPath
 //{
@@ -84,39 +97,39 @@ static int const MOSTPOPULAR_SECTION = 1;
     return _sortByValue;
 }
 
-- (NSArray *)filtersForSections
-{
-    // Each section has an array of filters, so this is an array of array of filters
-    NSMutableArray *sections = [[NSMutableArray alloc] init];
-    
-    // Sort by
-    Filter *sortbyFilter = [[Filter alloc] init];
-    sortbyFilter.options = @[@"Best Match", @"Distance", @"Highest Rated"];
-    [sections addObject:@[sortbyFilter]];
-    
-    // Distance
-    Filter *distanceFilter = [[Filter alloc] init];
-    distanceFilter.options = @[@"Auto", @"1km", @"5km", @"10km", @"20km"];
-    [sections addObject:@[distanceFilter]];
-    
-    // Most Popular
-    Filter *dealsFilter = [[Filter alloc] initWithText:@"Deals"];
-    NSArray *popularFilters = @[dealsFilter];
-    [sections addObject:popularFilters];
-    
-    // Categories
-    NSArray *categoriesFilters = @[[[Filter alloc] initWithText:@"Thai"],
-                                   [[Filter alloc] initWithText:@"Chinese"],
-                                   [[Filter alloc] initWithText:@"American"],
-                                   [[Filter alloc] initWithText:@"French"],
-                                   [[Filter alloc] initWithText:@"German"],
-                                   [[Filter alloc] initWithText:@"Hawaiin"],
-                                   [[Filter alloc] initWithText:@"Mexican"],
-                                   [[Filter alloc] initWithText:@"Italian"]];
-    [sections addObject:categoriesFilters];
-    
-    return sections;
-}
+//- (NSArray *)filtersForSections
+//{
+//    // Each section has an array of filters, so this is an array of array of filters
+//    NSMutableArray *sections = [[NSMutableArray alloc] init];
+//    
+//    // Sort by
+//    Filter *sortbyFilter = [[Filter alloc] init];
+//    sortbyFilter.options = @[@"Best Match", @"Distance", @"Highest Rated"];
+//    [sections addObject:@[sortbyFilter]];
+//    
+//    // Distance
+//    Filter *distanceFilter = [[Filter alloc] init];
+//    distanceFilter.options = @[@"Auto", @"1km", @"5km", @"10km", @"20km"];
+//    [sections addObject:@[distanceFilter]];
+//    
+//    // Most Popular
+//    Filter *dealsFilter = [[Filter alloc] initWithText:@"Deals"];
+//    NSArray *popularFilters = @[dealsFilter];
+//    [sections addObject:popularFilters];
+//    
+//    // Categories
+//    NSArray *categoriesFilters = @[[[Filter alloc] initWithText:@"Thai"],
+//                                   [[Filter alloc] initWithText:@"Chinese"],
+//                                   [[Filter alloc] initWithText:@"American"],
+//                                   [[Filter alloc] initWithText:@"French"],
+//                                   [[Filter alloc] initWithText:@"German"],
+//                                   [[Filter alloc] initWithText:@"Hawaiin"],
+//                                   [[Filter alloc] initWithText:@"Mexican"],
+//                                   [[Filter alloc] initWithText:@"Italian"]];
+//    [sections addObject:categoriesFilters];
+//    
+//    return sections;
+//}
 
 - (void)viewDidLoad
 {
@@ -145,23 +158,6 @@ static int const MOSTPOPULAR_SECTION = 1;
                                                                              action:@selector(searchBarButtonPress)];
 }
 
-- (void)cancelBarButtonPress
-{
-    [self.delegate hideFilters];
-}
-
-- (void)searchBarButtonPress
-{
-    self.delegate.isFiltersChanged = YES;
-    NSNumber *sortByNumber = [NSNumber numberWithUnsignedInteger:[SORTBY_OPTIONS indexOfObject:self.sortByValue]];
-    self.delegate.filters = @{@"sort":sortByNumber,
-                              @"radius_filter":@100,
-                              @"deals_filter":@0,
-                              @"category_filter":@""};
-    // Want to update the filters on the delegate
-    [self.delegate hideFilters];
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 //    NSArray *filters = self.filtersForSections[section];
@@ -177,7 +173,7 @@ static int const MOSTPOPULAR_SECTION = 1;
             numRows = self.isSortByExpanded ? SORTBY_OPTIONS.count : 1;
             break;
         case MOSTPOPULAR_SECTION:
-            numRows = MOSTPOPULAR_OPTIONS.count;
+            numRows = self.mostPopularFilters.count;
             break;
         default:
             NSLog(@"Bad section!!!");
@@ -252,8 +248,7 @@ static int const MOSTPOPULAR_SECTION = 1;
 {
     SwitchFilterCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SwitchFilterCell" forIndexPath:indexPath];
     // Need to see if the filter is in the set to know if it is on
-    cell.on = NO;
-    cell.text = MOSTPOPULAR_OPTIONS[indexPath.row];
+    cell.filter = self.mostPopularFilters[indexPath.row];
     return cell;
 }
 

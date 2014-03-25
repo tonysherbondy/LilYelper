@@ -27,20 +27,12 @@
     // Configure the view for the selected state
 }
 
-//- (void)setFilter:(Filter *)filter
-//{
-//    self.label.text = filter.text;
-//    self.switchView.on = filter.value;
-//}
-
-- (void)setOn:(BOOL)on
+- (void)setFilter:(Filter *)filter
 {
-    self.switchView.on = on;
+    self.label.text = filter.text;
+    self.switchView.on = filter.on;
 }
 
-- (void)setText:(NSString *)text
-{
-    self.label.text = text;
-}
+// Need to handle switch change value action
 
 @end

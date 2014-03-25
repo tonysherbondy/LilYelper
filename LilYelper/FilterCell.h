@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Filter.h"
 
+// Get rid of this cell
+
 @interface FilterCell : UITableViewCell
 @property (nonatomic, strong) Filter *filter;
 @end

@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FilterCell.h"
+#import "Filter.h"
 
-@interface SwitchFilterCell : FilterCell
-@property (nonatomic, strong) NSString *text;
-@property (nonatomic) BOOL on;
+@interface SwitchFilterCell : UITableViewCell
+@property (nonatomic, strong) Filter *filter;
 @end
