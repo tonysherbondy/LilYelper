@@ -59,9 +59,10 @@ static int const MOSTPOPULAR_SECTION = 1;
 {
     self.delegate.isFiltersChanged = YES;
     NSNumber *sortByNumber = [NSNumber numberWithUnsignedInteger:[SORTBY_OPTIONS indexOfObject:self.sortByValue]];
+    Filter *dealsFilter = self.mostPopularFilters[0];
     self.delegate.filters = @{@"sort":sortByNumber,
                               @"radius_filter":@100,
-                              @"deals_filter":@0,
+                              @"deals_filter":@(dealsFilter.on),
                               @"category_filter":@""};
     // Want to update the filters on the delegate
     [self.delegate hideFilters];

@@ -29,10 +29,16 @@
 
 - (void)setFilter:(Filter *)filter
 {
+    _filter = filter;
     self.label.text = filter.text;
     self.switchView.on = filter.on;
 }
 
 // Need to handle switch change value action
+- (IBAction)didChangeSwitchValue:(UISwitch *)sender
+{
+    self.filter.on = sender.isOn;
+}
+
 
 @end
