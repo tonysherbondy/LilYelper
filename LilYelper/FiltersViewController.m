@@ -14,25 +14,26 @@
 @interface FiltersViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-// I think I should erase below
-@property (nonatomic, strong) NSArray *filtersForSections;
-
-
-@property (nonatomic) BOOL isCategoriesExpanded;
-
 @property (nonatomic, strong) NSString *sortByValue;
 @property (nonatomic) BOOL isSortByExpanded;
 
 @property (nonatomic, strong) NSArray *mostPopularFilters;
+
+@property (nonatomic) NSInteger distanceValue;
+@property (nonatomic) BOOL isDistanceExpanded;
+
+@property (nonatomic) BOOL isCategoriesExpanded;
+
+
 @end
 
 static int const SORTBY_SECTION = 0;
 static int const MOSTPOPULAR_SECTION = 1;
-//static int const RADIUS_SECTION = 1;
-//static int const MOSTPOPULAR_SECTION = 2;
+static int const DISTANCE_SECTION = 2;
 //static int const CATEGORIES_SECTION = 3;
-#define SECTIONS @[@"Sort by", @"Most Popular"]
+#define SECTIONS @[@"Sort by", @"Most Popular", @"Distance"]
 #define SORTBY_OPTIONS @[@"Best Match", @"Distance", @"Highest Rated"]
+#define DISTANCE_OPTIONS @[@5, @10, @20, @50, @100] //kilometers
 
 @implementation FiltersViewController
 
@@ -53,6 +54,9 @@ static int const MOSTPOPULAR_SECTION = 1;
     // Most popular only has deals right now, but may have more
     BOOL dealsOn = [filters[@"deals_filter"] boolValue];
     self.mostPopularFilters = @[[[Filter alloc] initWithText:@"Deals" on:dealsOn]];
+    
+    NSUInteger distanceIndex = [DISTANCE_OPTIONS indexOfObject:filters[@"radius_filter"]];
+    self.distanceValue = [DISTANCE_OPTIONS[distanceIndex] integerValue];
 }
 
 - (void)searchBarButtonPress
@@ -60,8 +64,9 @@ static int const MOSTPOPULAR_SECTION = 1;
     self.delegate.isFiltersChanged = YES;
     NSNumber *sortByNumber = [NSNumber numberWithUnsignedInteger:[SORTBY_OPTIONS indexOfObject:self.sortByValue]];
     Filter *dealsFilter = self.mostPopularFilters[0];
+    
     self.delegate.filters = @{@"sort":sortByNumber,
-                              @"radius_filter":@100,
+                              @"radius_filter":[NSNumber numberWithInt:self.distanceValue],
                               @"deals_filter":@(dealsFilter.on),
                               @"category_filter":@""};
     // Want to update the filters on the delegate
@@ -73,30 +78,11 @@ static int const MOSTPOPULAR_SECTION = 1;
     [self.delegate hideFilters];
 }
 
-//- (BOOL)isSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return [self.nibsForSections[indexPath.section] isEqualToString:@"SelectCell"];
-//}
-
 //- (BOOL)isSeeAllCellAtIndexPath:(NSIndexPath *)indexPath
 //{
 //    // This eventually has to consider whether the
 //    return !self.isCategoriesExpanded && indexPath.section == CATEGORIES_SECTION && indexPath.row == 5;
 //}
-
-//- (BOOL)isCategorySectionAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    // This eventually has to consider whether the
-//    return indexPath.section == CATEGORIES_SECTION;
-//}
-
-- (NSString *)sortByValue
-{
-    if (!_sortByValue) {
-        _sortByValue = SORTBY_OPTIONS[0];
-    }
-    return _sortByValue;
-}
 
 //- (NSArray *)filtersForSections
 //{
@@ -176,6 +162,10 @@ static int const MOSTPOPULAR_SECTION = 1;
         case MOSTPOPULAR_SECTION:
             numRows = self.mostPopularFilters.count;
             break;
+        case DISTANCE_SECTION:
+            numRows = self.isDistanceExpanded ? DISTANCE_OPTIONS.count : 1;
+            break;
+            
         default:
             NSLog(@"Bad section!!!");
             break;
@@ -192,6 +182,57 @@ static int const MOSTPOPULAR_SECTION = 1;
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     return SECTIONS[section];
+}
+
+#pragma mark - Distance
+
+- (UITableViewCell *)cellForDistanceSectionWithIndexPath:(NSIndexPath *)indexPath
+{
+    SelectCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SelectCell" forIndexPath:indexPath];
+    // Do different things depending on whether this row is an expansion row or not
+    if (indexPath.row == 0) {
+        cell.text = [NSString stringWithFormat:@"%d km", self.distanceValue];
+    } else {
+        NSArray *remainingOptions = [self remainingDistanceOptions];
+        cell.text = [NSString stringWithFormat:@"%d km", [remainingOptions[indexPath.row-1] integerValue]];
+        [cell hideDropdownLabel];
+    }
+    return cell;
+}
+
+- (NSArray *)remainingDistanceOptions
+{
+    NSNumber *distance = [NSNumber numberWithInt:self.distanceValue];
+    return [DISTANCE_OPTIONS filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self != %@", distance]];
+}
+
+- (void)didSelectDistanceRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    BOOL wasExpanded = self.isDistanceExpanded;
+    NSArray *remainingOptions = [self remainingDistanceOptions];
+    if (indexPath.row == 0) {
+        // Simply toggle the expanded state
+        self.isDistanceExpanded = !wasExpanded;
+    } else {
+        // Select a new value and then close the select
+        self.isDistanceExpanded = NO;
+        self.distanceValue = [remainingOptions[indexPath.row-1] integerValue];
+    }
+    
+    NSMutableArray *changingIndexPaths = [[NSMutableArray alloc] init];
+    for (int i=0; i<remainingOptions.count; i++) {
+        [changingIndexPaths addObject:[NSIndexPath indexPathForRow:i+1 inSection:DISTANCE_SECTION]];
+    }
+    if (!wasExpanded && self.isDistanceExpanded) {
+        // insert rows
+        // Need to change dropdown arrow to up
+        [self.tableView insertRowsAtIndexPaths:changingIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else if (wasExpanded && !self.isDistanceExpanded) {
+        // close rows
+        // Need to change dropdown arrow to down
+        [self.tableView deleteRowsAtIndexPaths:changingIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:DISTANCE_SECTION]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 #pragma mark - Sort By
@@ -275,6 +316,9 @@ static int const MOSTPOPULAR_SECTION = 1;
         case MOSTPOPULAR_SECTION:
             cell = [self cellForMostPopularSectionWithIndexPath:indexPath];
             break;
+        case DISTANCE_SECTION:
+            cell = [self cellForDistanceSectionWithIndexPath:indexPath];
+            break;
             
         default:
             NSLog(@"Don't recognize section, can't return cell!!");
@@ -295,6 +339,10 @@ static int const MOSTPOPULAR_SECTION = 1;
         case MOSTPOPULAR_SECTION:
             // do nothing
             break;
+        case DISTANCE_SECTION:
+            [self didSelectDistanceRowWithIndexPath:indexPath];
+            break;
+            
         default:
             NSLog(@"don't recognize section you selected!");
             break;
