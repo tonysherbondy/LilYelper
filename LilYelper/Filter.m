@@ -18,4 +18,16 @@
     }
     return self;
 }
+
+- (id)initWithText:(NSString *)text key:(NSString *)key
+{
+    self = [super init];
+    if (self) {
+        self.text = text;
+        self.on = NO;
+        self.key = key;
+    }
+    return self;
+}
+
 @end

@@ -10,7 +10,9 @@
 
 @interface Filter : NSObject
 @property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) NSString *key;
 // filter is on or off
 @property (nonatomic, assign) BOOL on;
 - (id)initWithText:(NSString *)text on:(BOOL)on;
+- (id)initWithText:(NSString *)text key:(NSString *)key;
 @end

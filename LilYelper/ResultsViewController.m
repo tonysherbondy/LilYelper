@@ -65,8 +65,8 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
         // Initialize simple dictionary of filters
         _filters = @{@"sort":@0,
                      @"radius_filter":@10000,
-                     @"deals_filter":@1,
-                     @"category_filter":@""};
+                     @"deals_filter":@(NO),
+                     @"category_filter":@"bbq,newamerican"};
     }
     return _filters;
 }

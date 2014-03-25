@@ -22,6 +22,7 @@
 @property (nonatomic) NSInteger distanceValue;
 @property (nonatomic) BOOL isDistanceExpanded;
 
+@property (nonatomic, strong) NSArray *categoryFilters;
 @property (nonatomic) BOOL isCategoriesExpanded;
 
 
@@ -30,8 +31,8 @@
 static int const SORTBY_SECTION = 0;
 static int const MOSTPOPULAR_SECTION = 1;
 static int const DISTANCE_SECTION = 2;
-//static int const CATEGORIES_SECTION = 3;
-#define SECTIONS @[@"Sort by", @"Most Popular", @"Distance"]
+static int const CATEGORIES_SECTION = 3;
+#define SECTIONS @[@"Sort by", @"Most Popular", @"Distance", @"Categories"]
 #define SORTBY_OPTIONS @[@"Best Match", @"Distance", @"Highest Rated"]
 #define DISTANCE_OPTIONS @[@1, @5, @10, @20, @50] //kilometers
 
@@ -46,6 +47,29 @@ static int const DISTANCE_SECTION = 2;
     return self;
 }
 
+- (NSArray *)categoryFilters
+{
+    if (!_categoryFilters) {
+        _categoryFilters = @[ [[Filter alloc] initWithText:@"Afghan" key:@"afghani"],
+                              [[Filter alloc] initWithText:@"African" key:@"african"],
+                              [[Filter alloc] initWithText:@"Senegalese" key:@"senegalese"],
+                              [[Filter alloc] initWithText:@"South African" key:@"southafrican"],
+                              [[Filter alloc] initWithText:@"American (New)" key:@"newamerican"],
+                              [[Filter alloc] initWithText:@"American (Traditional)" key:@"tradamerican"],
+                              [[Filter alloc] initWithText:@"Arabian" key:@"arabian"],
+                              [[Filter alloc] initWithText:@"Argentine" key:@"argentine"],
+                              [[Filter alloc] initWithText:@"Armenian" key:@"armenian"],
+                              [[Filter alloc] initWithText:@"Asian Fusion" key:@"asianfusion"],
+                              [[Filter alloc] initWithText:@"Australian" key:@"australian"],
+                              [[Filter alloc] initWithText:@"Bangladeshi" key:@"bangladeshi"],
+                              [[Filter alloc] initWithText:@"Barbeque" key:@"bbq"],
+                              [[Filter alloc] initWithText:@"Brasseries" key:@"brasseries"],
+                              [[Filter alloc] initWithText:@"Breakfast & Brunch" key:@"breakfast_brunch"]
+                             ];
+    }
+    return _categoryFilters;
+}
+
 - (void)setFilters:(NSDictionary *)filters
 {
     // Change all filters based on dictionary values
@@ -58,6 +82,19 @@ static int const DISTANCE_SECTION = 2;
     NSNumber *distance = [NSNumber numberWithInt:[filters[@"radius_filter"] integerValue]/1000];
     NSUInteger distanceIndex = [DISTANCE_OPTIONS indexOfObject:distance];
     self.distanceValue = [DISTANCE_OPTIONS[distanceIndex] integerValue];
+    
+    NSString *categoriesString = filters[@"category_filter"];
+    NSArray *categories = [categoriesString componentsSeparatedByString:@","];
+    for (NSString *category in categories) {
+        NSUInteger categoryIndex = [self.categoryFilters indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            Filter *filter = (Filter *)obj;
+            *stop = [filter.key isEqualToString:category];
+            return *stop;
+        }];
+        if (categoryIndex != NSNotFound) {
+            ((Filter *)self.categoryFilters[categoryIndex]).on = YES;
+        }
+    }
 }
 
 - (void)searchBarButtonPress
@@ -66,10 +103,16 @@ static int const DISTANCE_SECTION = 2;
     NSNumber *sortByNumber = [NSNumber numberWithUnsignedInteger:[SORTBY_OPTIONS indexOfObject:self.sortByValue]];
     Filter *dealsFilter = self.mostPopularFilters[0];
     
+    // handle categories
+    NSArray *categoriesOn = [self.categoryFilters filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self.on == YES"]];
+    NSMutableArray *categoriesOnKeys = [[NSMutableArray alloc] init];
+    for (Filter *category in categoriesOn) {
+        [categoriesOnKeys addObject:category.key];
+    }
     self.delegate.filters = @{@"sort":sortByNumber,
                               @"radius_filter":[NSNumber numberWithInt:(self.distanceValue*1000)],
                               @"deals_filter":@(dealsFilter.on),
-                              @"category_filter":@""};
+                              @"category_filter":[categoriesOnKeys componentsJoinedByString:@","]};
     // Want to update the filters on the delegate
     [self.delegate hideFilters];
 }
@@ -165,6 +208,10 @@ static int const DISTANCE_SECTION = 2;
             break;
         case DISTANCE_SECTION:
             numRows = self.isDistanceExpanded ? DISTANCE_OPTIONS.count : 1;
+            break;
+        case CATEGORIES_SECTION:
+            // need to handle collapsing categories
+            numRows = self.categoryFilters.count;
             break;
             
         default:
@@ -290,8 +337,16 @@ static int const DISTANCE_SECTION = 2;
 - (UITableViewCell *)cellForMostPopularSectionWithIndexPath:(NSIndexPath *)indexPath
 {
     SwitchFilterCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SwitchFilterCell" forIndexPath:indexPath];
-    // Need to see if the filter is in the set to know if it is on
     cell.filter = self.mostPopularFilters[indexPath.row];
+    return cell;
+}
+
+#pragma mark - Categories
+- (UITableViewCell *)cellForCategorySectionWithIndexPath:(NSIndexPath *)indexPath
+{
+    SwitchFilterCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SwitchFilterCell" forIndexPath:indexPath];
+    // Handle collapsed by eventually displaying show all
+    cell.filter = self.categoryFilters[indexPath.row];
     return cell;
 }
 
@@ -320,6 +375,9 @@ static int const DISTANCE_SECTION = 2;
         case DISTANCE_SECTION:
             cell = [self cellForDistanceSectionWithIndexPath:indexPath];
             break;
+        case CATEGORIES_SECTION:
+            cell = [self cellForCategorySectionWithIndexPath:indexPath];
+            break;
             
         default:
             NSLog(@"Don't recognize section, can't return cell!!");
@@ -338,6 +396,7 @@ static int const DISTANCE_SECTION = 2;
             [self didSelectSortByRowWithIndexPath:indexPath];
             break;
         case MOSTPOPULAR_SECTION:
+        case CATEGORIES_SECTION:
             // do nothing
             break;
         case DISTANCE_SECTION:
